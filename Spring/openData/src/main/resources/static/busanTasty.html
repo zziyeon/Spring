@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>부산맛집 공공데이터</title>
+</head>
+
+<body>
+    <div id="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>데이터 생성일</th>
+                    <th>확진자수</th>
+                    <th>사망자수</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2022-08-01</td>
+                    <td>1</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>2022-08-01</td>
+                    <td>1</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>2022-08-01</td>
+                    <td>1</td>
+                    <td>3</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script type="text/javascript" src="./js/xml2json.js"></script>
+    <script>
+        /* Javascript 샘플 코드 */
+        const xhr = new XMLHttpRequest();
+
+        var url = 'http://apis.data.go.kr/6260000/FoodService/getFoodKr'; /*URL*/
+        var queryParams = '?' + encodeURIComponent('serviceKey') + '=' + '0FqrGqLAdB%2FW%2FQHq%2FIDFUDUVg%2BVS5Xf9s1evIyDFe7vVtDtLMqI%2FDuZf9vVxnGyn6ugNtt%2FFmU0hA7HyxSmoxg%3D%3D'; /*Service Key*/
+        queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); /**/
+        queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10'); /**/
+        queryParams += '&' + encodeURIComponent('resultType') + '=' + encodeURIComponent(''); /**/
+        queryParams += '&' + encodeURIComponent('UC_SEQ') + '=' + encodeURIComponent(''); /**/
+
+        xhr.open('GET', url + queryParams);
+s
+        xhr.addEventListener('readystatechange', (e) => {
+            if (e.target.readyState == 4) {
+
+                const xml2json = new XMLtoJSON();
+                //xml포맷 문자열 => js객체
+                const jsObj = xml2json.fromStr(e.target.responseText);
+                console.log(jsObj);
+                //console.log(jsObj.response.header);
+                //console.log(jsObj.response.body);
+                // const header = jsObj.response.header;ss
+                // const body = jsObj.response.body
+                // if (getText(header.resultCode) == '00') {
+                //     console.log('성공');
+                //     const result = body.items.item;
+                //     result.forEach((ele) => {
+                //         console.log(
+                //             `데이터생성일:${getText(ele.createDt)},
+                //             확진자수:${getText(ele.confCase)},
+                //             사망자자수:${getText(ele.death)}`
+                //         );
+                //     });
+                // } else {
+                //     console.log('실패');
+                // }
+            }
+        });
+
+        xhr.send('');
+
+        function getText(obj) {
+            return obj['#text'];
+        }
+    </script>
+</body>
+
+</html>

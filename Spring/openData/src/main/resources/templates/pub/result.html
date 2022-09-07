@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>result</title>
+</head>
+
+<body>
+<label>시설명</label>
+<input type="text" id="faciNm">
+<button id="btnPubData">가져오기</button>
+<table>
+    <caption>공공데이터 목록</caption>
+    <thead>
+    <tr>
+        <th>가게명</th>
+        <th>위도</th>
+        <th>경도</th>
+    </tr>
+    </thead>
+    <tbody id="list">
+    <!-- <tr>
+<td>값1</td>
+<td>값1</td>
+<td>값1</td>
+</tr>
+<tbody>
+<tr>
+<td>값2</td>
+<td>값2</td>
+<td>값2</td>
+</tr>
+<tbody>
+<tr>
+<td>값3</td>
+<td>값3</td>
+<td>값3</td>
+</tr> -->
+    </tbody>
+</table>
+<script>
+
+        const getData_h = e => {
+
+            const faciNm=document.getElementById('faciNm').value;
+
+            console.log(faciNm);
+
+            // const xhr = new XMLHttpRequest();
+            // const method = 'GET';
+            // const url = `http://localhost:9080/api/pub/json?facinum=${faciNm}`;
+            // xhr.open(method, url); //request 요청 초기화
+            // xhr.send(null); //request 요청 전송
+
+            // document.getElementById('list').textContent = '가져오기중...';
+
+            // const async_h = e => {
+            //     console.log(xhr.readyState);
+            //     if (xhr.readyState === XMLHttpRequest.DONE) {
+            //         const status = xhr.status;
+            //         if (status === 0 || (status >= 200 && status < 400)) {
+            //             // 요청성공
+            //             console.log(xhr.responseText);
+            //             //json문자열=>js객체
+            //             jsObj = JSON.parse(xhr.responseText);
+            //             console.log(jsObj);
+            //             if (jsObj.header.resultCode == '00') {
+            //                 const getListItem = list => {
+            //                     return `<tr><td>${list.company}</td><td>${list.lat}</td><td>${list.lng}</td></tr>`;
+            //                 };
+            //                 const html = jsObj.body.data.map(list => getListItem(list)).join('');
+            //                 document.getElementById('list').innerHTML = html;
+            //             } else {
+            //                 console.log('resultCode 00아님');
+            //             }
+            //         } else {
+            //             // 요청실패
+            //         }
+            //     }
+            // };
+
+            // xhr.addEventListener('readystatechange', async_h);
+        }
+
+        document.getElementById('btnPubData').addEventListener('click', getData_h);
+
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>코로나 공공데이터</title>
+</head>
+<body>
+<div id="container">
+    <table>
+        <thead>
+            <tr>
+                <th>데이터 생성일</th>
+                <th>확진자수</th>
+                <th>사망자수</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>2022-08-01</td>
+                <td>1</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>2022-08-01</td>
+                <td>1</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>2022-08-01</td>
+                <td>1</td>
+                <td>3</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript" src="./js/xml2json.js"></script>
+<script>
+      /* Javascript 샘플 코드 */
+      const xhr = new XMLHttpRequest();
+      const url =
+        'http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19GenAgeCaseInfJson'; /*URL*/
+      let queryParams =
+        '?' +
+        encodeURIComponent('serviceKey') +
+        '=' +
+        'bJ0AcEWnYARdHMe24EsPd77ralP%2BiRWLuhIeWgoIBgM%2F4dqlAgbS%2FilwgSiZkbkL9ojCBQHuEZI2TtoMqYzRhA%3D%3D'; /*Service Key*/
+      queryParams +=
+        '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); /**/
+      queryParams +=
+        '&' +
+        encodeURIComponent('numOfRows') +
+        '=' +
+        encodeURIComponent('10'); /**/
+      queryParams +=
+        '&' +
+        encodeURIComponent('startCreateDt') +
+        '=' +
+        encodeURIComponent('20220809'); /*가져올 데이터 시작일*/
+      queryParams +=
+        '&' +
+        encodeURIComponent('endCreateDt') +
+        '=' +
+        encodeURIComponent('20220810'); /*가져올 데이터 종료일*/
+
+      xhr.open('GET', url + queryParams);
+
+      xhr.addEventListener('readystatechange', (e) => {
+        if (e.target.readyState == 4) {
+
+          const xml2json = new XMLtoJSON();
+          //xml포맷 문자열 => js객체
+          const jsObj = xml2json.fromStr(e.target.responseText);
+          //console.log(jsObj);
+          //console.log(jsObj.response.header);
+          //console.log(jsObj.response.body);
+          const heaer = jsObj.response.header;
+          const body = jsObj.response.body
+          if (getText(heaer.resultCode) == '00') {
+            console.log('성공');
+            const result = body.items.item;
+            result.forEach((ele) => {
+              console.log(
+                `데이터생성일:${getText(ele.createDt)},
+                 확진자수:${getText(ele.confCase)},
+                 사망자자수:${getText(ele.death)}`
+              );
+            });
+          } else {
+            console.log('실패');
+          }
+        }
+      });
+
+      xhr.send('');
+
+      function getText(obj){
+        return obj['#text'];
+      }
+    </script>
+</body>
+</html>

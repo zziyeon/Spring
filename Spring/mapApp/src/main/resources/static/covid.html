@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+
+<script>
+  var xhr = new XMLHttpRequest();
+  var url = 'http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19GenAgeCaseInfJson'; /*URL*/
+  var queryParams = '?' + encodeURIComponent('serviceKey') + '='+'
+0FqrGqLAdB/W/QHq/IDFUDUVg+VS5Xf9s1evIyDFe7vVtDtLMqI/DuZf9vVxnGyn6ugNtt/FmU0hA7HyxSmoxg=='; /*Service Key*/
+  queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); /**/
+  queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10'); /**/
+  queryParams += '&' + encodeURIComponent('startCreateDt') + '=' + encodeURIComponent('20200310'); /**/
+  queryParams += '&' + encodeURIComponent('endCreateDt') + '=' + encodeURIComponent('20200414'); /**/
+  xhr.open('GET', url + queryParams);
+  xhr.onreadystatechange = function () {
+      if (this.readyState == 4) {
+          alert('Status: '+this.status+'nHeaders: '+JSON.stringify(this.getAllResponseHeaders())+'nBody: '+this.responseText);
+      }
+  };
+
+xhr.send('');
+</script>
+</html>
