@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 등록</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th><label>상품명</label></th>
+            <td><input type="text" placeholder="상품명을 입력하세요(20자 이내)"></td>
+        </tr>
+        <tr>
+            <th><label>수량</label></th>
+            <td><input type="number" min="0"></td>
+        </tr>
+        <tr>
+            <th><label>가격</label></th>
+            <td><input type="text"></td>
+        </tr>
+    </table>
+    <div>
+        <button type="button" id="cancelBtn">취소</button>
+        <button type="submit">등록</button>
+    </div>
+    <script>
+        cancelBtn.addEventListener('click', e=>{
+            location.href='/products';
+        });
+    </script>
+</body>
+</html>
