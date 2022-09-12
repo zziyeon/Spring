@@ -8,27 +8,29 @@
     <title>상품 등록</title>
 </head>
 <body>
+<form id="form" action="" method="post" th:object="${form}" >
     <table>
         <tr>
-            <th><label>상품명</label></th>
-            <td><input type="text" placeholder="상품명을 입력하세요(20자 이내)"></td>
+            <th><label >상품명</label></th>
+            <td><input type="text" th:field="*{pname}" placeholder="상품명을 입력하세요(20자 이내)"></td>
         </tr>
         <tr>
             <th><label>수량</label></th>
-            <td><input type="number" min="0"></td>
+            <td><input type="number" th:field="*{quantity}" min="0"></td>
         </tr>
         <tr>
-            <th><label>가격</label></th>
-            <td><input type="text"></td>
+            <th><label >가격</label></th>
+            <td><input type="text" th:field="*{price}"></td>
         </tr>
     </table>
     <div>
         <button type="button" id="cancelBtn">취소</button>
         <button type="submit">등록</button>
     </div>
+</form>
     <script>
         cancelBtn.addEventListener('click', e=>{
-            location.href='/products';
+            location.href='/product';
         });
     </script>
 </body>

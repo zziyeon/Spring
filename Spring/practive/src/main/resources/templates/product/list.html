@@ -6,29 +6,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상품목록</title>
+    <style>
+        section {
+            display: flex;
+            width: 260px;
+            outline: 1px solid black;
+        }
+    </style>
 </head>
 <body>
+    <h3>상품 목록</h3>
+    <hr>
+    <div class="here">
+        <section th:each="rec : ${list}" th:data-product-id="${rec.productId}">
+            <div class="there">
+                <div>상품ID</div>
+                <div class="this">[[${rec.productId}]]</div>
+            </div>
+            <div class="there">
+                <div>상품명</div>
+                <div class="this">[[${rec.pname}]]</div>
+            </div>
+            <div class="there">
+                <div>수량</div>
+                <div class="this"><span>[[${rec.quantity}]]</span>개</div>
+            </div>
+            <div class="there">
+                <div>가격</div>
+                <div class="this"><span>[[${rec.price}]]</span>원</div>
+            </div>
+        </section>
+    </div>
+    <div>
+        <button id="addBtn">등록하기</button>
+    </div>
 
-<section>
-    <div>
-        <div>상품ID</div>
-        <div></div>
-    </div>
-    <div>
-        <div>상품명</div>
-        <div></div>
-    </div>
-    <div>
-        <div>수량</div>
-        <div><span></span>개</div>
-    </div>
-    <div>
-        <div>가격</div>
-        <div><span></span>원</div>
-    </div>
-</section>
-<div>
-    <button>등록하기</button>
-</div>
+<script th:inline="javascript">
+    const $section = document.querySelector('.here');
+    $section.addEventListener('click', e=>{
+        if(e.target.className == 'this') {
+            const productId = e.target.parentElement.parentElement.dataset.productId;
+            location.href=`/product/${productId}`;
+        }
+    });
+    addBtn.addEventListener('click', e=>{
+        location.href = '/product/add';
+    });
+</script>
 </body>
 </html>

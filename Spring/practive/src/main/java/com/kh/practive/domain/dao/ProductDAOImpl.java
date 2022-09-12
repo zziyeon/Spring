@@ -55,14 +55,14 @@ public class ProductDAOImpl implements ProductDAO{
 
     //상품 수정
     @Override
-    public void update(Long productId, Product product) {
+    public int update(Long productId, Product product) {
         StringBuffer sql = new StringBuffer();
 
         sql.append("update product ");
-        sql.append("pname=?, quantity=?, price=? ");
+        sql.append("set pname=?, quantity=?, price=? ");
         sql.append("where product_id = ? ");
 
-        jt.update(sql.toString(), product.getPname(), product.getQuantity(), product.getPrice(), productId);
+        return jt.update(sql.toString(), product.getPname(), product.getQuantity(), product.getPrice(), productId);
     }
 
     //상품 삭제

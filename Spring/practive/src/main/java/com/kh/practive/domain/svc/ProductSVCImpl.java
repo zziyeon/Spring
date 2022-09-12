@@ -24,15 +24,15 @@ public class ProductSVCImpl implements ProductSVC {
         productDAO.save(product);
         return productDAO.findById(generatePid);
     }
-
-    @Override
+    //조회
+    // @Override
     public Product findById(Long productId) {
         return productDAO.findById(productId);
     }
 
     @Override
-    public void update(Long productId, Product product) {
-        productDAO.update(productId, product);
+    public int update(Long productId, Product product) {
+        return productDAO.update(productId, product);
     }
 
     @Override

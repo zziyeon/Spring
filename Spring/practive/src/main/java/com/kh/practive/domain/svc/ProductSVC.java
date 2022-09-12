@@ -24,7 +24,7 @@ public interface ProductSVC {
      * @param productId 수정할 상품 아이디
      * @param product 수정할 상품 정보
      */
-    void update(Long productId, Product product);
+    int update(Long productId, Product product);
 
     /**
      * 상품 삭제
