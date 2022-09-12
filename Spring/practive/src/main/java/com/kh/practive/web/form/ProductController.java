@@ -53,7 +53,6 @@ public class ProductController {
             @PathVariable("id") Long id,
             Model model
     ){
-        System.out.println("ssss");
         Product findedProduct = productSVC.findById(id);
 
         EachInfoForm eachInfoForm = new EachInfoForm();
@@ -97,6 +96,16 @@ public class ProductController {
             return "product/editForm";
         }
         return "redirect:/product/{id}";
+    }
+
+    //삭제처리
+    @GetMapping("/{id}/del")
+    public String delete(@PathVariable("id") Long id) {
+        int deletedRow = productSVC.delete(id);
+        if (deletedRow == 0){
+            return "redirect:/product/"+id;
+        }
+        return "redirect:/product";
     }
 
     //목록 화면

@@ -36,8 +36,8 @@ public class ProductSVCImpl implements ProductSVC {
     }
 
     @Override
-    public void delete(Long productId) {
-        productDAO.delete(productId);
+    public int delete(Long productId) {
+        return productDAO.delete(productId);
     }
 
     @Override

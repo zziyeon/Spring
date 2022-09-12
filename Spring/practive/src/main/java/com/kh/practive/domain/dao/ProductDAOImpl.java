@@ -67,10 +67,10 @@ public class ProductDAOImpl implements ProductDAO{
 
     //상품 삭제
     @Override
-    public void delete(Long productId) {
+    public int delete(Long productId) {
         String sql = "delete from product where product_id=? ";
 
-        jt.update(sql, productId);
+        return jt.update(sql, productId);
     }
 
     //상품 목록

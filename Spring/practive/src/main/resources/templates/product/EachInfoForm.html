@@ -54,7 +54,8 @@
 
             //<!-- 삭제 -->
             deleteBtn.addEventListener('click', e=>{
-            if(!confirm('삭제하시겟습니까?')) return;
+                if(!confirm('삭제하시겟습니까?')) return;
+                console.log('삭제');
                 location.href = [[@{|/product/${form.productId}/del|}]];
             });
     </script>

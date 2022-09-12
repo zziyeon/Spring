@@ -30,7 +30,7 @@ public interface ProductSVC {
      * 상품 삭제
      * @param productId 삭제할 상품 아이디
      */
-    void delete(Long productId);
+    int delete(Long productId);
 
     /**
      * 상품 목록
