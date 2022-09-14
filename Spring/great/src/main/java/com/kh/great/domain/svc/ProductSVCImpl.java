@@ -18,10 +18,10 @@ public class ProductSVCImpl implements ProductSVC {
     @Override
     public Product save(Product product) {
         //상품번호 생성
-        Integer generateProductNumber = productDAO.generateProductNumber;
-        product.setProductNumber(generateProductNumber);
+        Integer generatePnum = productDAO.generatePnum();
+        product.setProductNumber(generatePnum);
         productDAO.save(product);
-        return productDAO.findByNumber(generateProductNumber);
+        return productDAO.findByNumber(generatePnum);
     }
 
     //조회
@@ -44,5 +44,10 @@ public class ProductSVCImpl implements ProductSVC {
     @Override
     public List<Product> findAll() {
         return productDAO.findAll();
+    }
+
+    @Override
+    public Integer generatePnum(){
+        return productDAO.generatePnum();
     }
 }

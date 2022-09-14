@@ -13,9 +13,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductDAOImpl implements ProductDAO{
     private  final JdbcTemplate jt;
-
     //신규 상품 번호 생성
-    public Integer generateProductNumber() {
+    public Integer generatePnum() {
         String sql = "select product_productNumber_seq.nextval from dual ";
         Integer productNumber = jt.queryForObject(sql, Integer.class);
         return productNumber;
@@ -65,4 +64,5 @@ public class ProductDAOImpl implements ProductDAO{
     public List<Product> findAll() {
         return null;
     }
+
 }

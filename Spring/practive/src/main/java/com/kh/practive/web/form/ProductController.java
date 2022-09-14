@@ -47,6 +47,11 @@ public class ProductController {
         return "redirect:/product/{id}";
     }
 
+
+
+    //등록, 수정 검증 필요
+
+
     //상품 개별 조회
     @GetMapping("/{id}")
     public String findByProductId(

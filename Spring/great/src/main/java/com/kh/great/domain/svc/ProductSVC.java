@@ -37,4 +37,10 @@ public interface ProductSVC {
      * @return  상품전체
      */
     List<Product> findAll();
+
+    /**
+     * 상품번호 생성
+     * @return 상품 번호
+     */
+    Integer generatePnum();
 }
