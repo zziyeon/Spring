@@ -24,13 +24,13 @@ public interface ProductSVC {
      * @param productNumber 수정할 상품 번호
      * @param product       수정할 상품 정보
      */
-    void updatae(Long productNumber, Product product);
+    int update(Long productNumber, Product product);
 
     /**
      * 상품 삭제
      * @param productNumber 삭제할 상품 번호
      */
-    void delete(Long productNumber);
+    int delete(Long productNumber);
 
     /**
      * 상품 목록

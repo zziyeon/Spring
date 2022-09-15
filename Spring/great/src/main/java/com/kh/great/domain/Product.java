@@ -1,6 +1,5 @@
 package com.kh.great.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,13 +8,13 @@ import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class Product {
     private Long productNumber;      //상품번호  P_NUMBER	VARCHAR2(4 BYTE)	No
     private Integer owenerNumber;       //점주번호  OWNER_NUMBER	NUMBER(6,0)	No
     private String storeName;           //가게명   STORE_NAME	VARCHAR2(30 BYTE)	No
     private String title;               //글제목   P_TITLE	VARCHAR2(300 BYTE)	No
     private String pName;               //상품명   P_NAME	VARCHAR2(30 BYTE)	No
+
     private LocalDateTime deadlineTime; //마감시간  DEADLINE_TIME	DATE	Yes
     private String category;            //업종 카테고리   CATEGORY	VARCHAR2(17 BYTE)	No
     private Integer totalCount;         //총수량   TOTAL_COUNT	NUMBER(5,0)	No	0

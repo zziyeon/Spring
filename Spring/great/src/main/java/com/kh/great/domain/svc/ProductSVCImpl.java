@@ -19,8 +19,11 @@ public class ProductSVCImpl implements ProductSVC {
     public Product save(Product product) {
         //상품번호 생성
         Long generatePnum = productDAO.generatePnum();
+        log.info("================>{}",generatePnum);
         product.setProductNumber(generatePnum);
         productDAO.save(product);
+        log.info("================>{}", productDAO.save(product));
+        log.info("================>{}", productDAO.findByNumber(generatePnum));
         return productDAO.findByNumber(generatePnum);
     }
 
@@ -32,13 +35,13 @@ public class ProductSVCImpl implements ProductSVC {
 
     //수정
     @Override
-    public void updatae(Long productNumber, Product product) {
-        productDAO.update(productNumber,product);
+    public int update(Long productNumber, Product product) {
+        return productDAO.update(productNumber,product);
     }
 
     @Override
-    public void delete(Long productNumber) {
-        productDAO.delete(productNumber);
+    public int delete(Long productNumber) {
+        return productDAO.delete(productNumber);
     }
 
     @Override

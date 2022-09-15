@@ -22,10 +22,12 @@ public interface ProductDAO {
 
     /**
      * 상품 정보 수정
+     *
      * @param productNumber 수정할 상품 번호
      * @param product       수정할 상품 정보
+     * @return
      */
-    void update(Long productNumber, Product product);
+    int update(Long productNumber, Product product);
 
     /**
      * 상품 삭제

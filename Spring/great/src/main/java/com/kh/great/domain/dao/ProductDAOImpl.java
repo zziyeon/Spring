@@ -12,7 +12,8 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 public class ProductDAOImpl implements ProductDAO{
-    private  final JdbcTemplate jt;
+    private final JdbcTemplate jt;
+    @Override
     //신규 상품 번호 생성
     public Long generatePnum() {
         String sql = "select product_productNumber_seq.nextval from dual ";
@@ -26,10 +27,11 @@ public class ProductDAOImpl implements ProductDAO{
         int result = 0;
         StringBuffer sql = new StringBuffer();
         sql.append("INSERT INTO PRODUCT_INFO ");
-        sql.append("(P_NUMBER, 1, P_TITLE, P_NAME, DEADLINE_TIME, CATEGORY, TOTAL_COUNT, REMAIN_COUNT, NORMAL_PRICE, SALE_PRICE, DISCOUNT_RATE, PAYMENT_OPTION, DETAIL_INFO,  P_STATUS) ");
-        sql.append("VALUES (?, ?, ?, ?, TO_DATE(?,'YYYY-MM-DD \"T\"HH24:MI:SS'),?, ?, ?, ?, ?, ?, ?, ?, ?) ");
+        sql.append("(P_NUMBER, OWNER_NUMBER, STORE_NAME, P_TITLE, P_NAME, DEADLINE_TIME, CATEGORY, TOTAL_COUNT, " );
+        sql.append("NORMAL_PRICE, SALE_PRICE, PAYMENT_OPTION, DETAIL_INFO, UPDATE_DATE) ");
+        sql.append("VALUES (?, 1, '베리베리스트로', ?, ?, ?, ?,?, ?, ?, ?, ?, ? ) ");
 
-        jt.update(sql.toString(), product.getProductNumber(), product.getTitle(), product.getPName(), product.getDeadlineTime(), product.getCategory(), product.getTotalCount(), product.getRemainCount(), product.getNormalPrice(), product.getSalePrice(), product.getDiscountRate(), product.getPaymentOption(), product.getDetailInfo(), product.getPStatus());
+        jt.update(sql.toString(), product.getProductNumber(), product.getTitle(), product.getPName(), product.getDeadlineTime(), product.getCategory(), product.getTotalCount(), product.getNormalPrice(), product.getSalePrice(), product.getPaymentOption(), product.getDetailInfo(), product.getUdate() );
 
         return result;
     }
@@ -47,14 +49,15 @@ public class ProductDAOImpl implements ProductDAO{
     }
 
     @Override
-    public void update(Long productNumber, Product product) {
+    public int update(Long productNumber, Product product) {
 
+        return 0;
     }
 
     @Override
     public int delete(Long productNumber) {
         int result = 0;
-        String sql = "delete from product_info where productNumber=? ";
+        String sql = "delete from product_info where P_NUMBER=? ";
 
         result = jt.update(sql, productNumber);
         return result;
