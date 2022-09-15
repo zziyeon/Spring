@@ -14,9 +14,9 @@ import java.util.List;
 public class ProductDAOImpl implements ProductDAO{
     private  final JdbcTemplate jt;
     //신규 상품 번호 생성
-    public Integer generatePnum() {
+    public Long generatePnum() {
         String sql = "select product_productNumber_seq.nextval from dual ";
-        Integer productNumber = jt.queryForObject(sql, Integer.class);
+        Long productNumber = jt.queryForObject(sql, Long.class);
         return productNumber;
     }
 
@@ -40,19 +40,19 @@ public class ProductDAOImpl implements ProductDAO{
      * @return  상품 정보
      */
     @Override
-    public Product findByNumber(Integer productNumber) {
+    public Product findByNumber(Long productNumber) {
         StringBuffer sql = new StringBuffer();
 //        sql.append("SELECT ")
         return null;
     }
 
     @Override
-    public void updatae(Integer productNumber, Product product) {
+    public void update(Long productNumber, Product product) {
 
     }
 
     @Override
-    public int delete(Integer productNumber) {
+    public int delete(Long productNumber) {
         int result = 0;
         String sql = "delete from product_info where productNumber=? ";
 
