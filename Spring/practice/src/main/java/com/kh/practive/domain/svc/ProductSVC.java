@@ -38,5 +38,4 @@ public interface ProductSVC {
      */
     List<Product> findAll();
 
-    Long generatePid();
 }

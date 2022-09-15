@@ -45,8 +45,4 @@ public class ProductSVCImpl implements ProductSVC {
         return productDAO.findAll();
     }
 
-    @Override
-    public Long generatePid(){
-        return productDAO.generatePid();
-    }
 }
