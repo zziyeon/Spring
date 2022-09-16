@@ -34,3 +34,7 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+//테스트에서 lombok 사용
+testCompileOnly 'org.projectlombok:lombok'
+testAnnotationProcessor 'org.projectlombok:lombok'
