@@ -89,7 +89,7 @@ public class ProductController {
     }
 
     //수정처리
-    @PostMapping("{id}/edit")
+    @PostMapping("/{id}/edit")
     public String edit(@PathVariable("id") Long id, @Valid @ModelAttribute("form") EditForm editForm, BindingResult bindingResult) {
         Product product = new Product();
         product.setPname(editForm.getPname());
