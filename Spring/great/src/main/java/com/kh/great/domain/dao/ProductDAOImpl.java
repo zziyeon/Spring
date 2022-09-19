@@ -33,13 +33,13 @@ public class ProductDAOImpl implements ProductDAO {
     //상품등록
     @Override
     public Product save(Product product) {
-        String sql = "insert into product_info(p_number,store_name,p_title, p_name) values(?, ?, ?,?) ";
+        String sql = "insert into product_info(p_number, store_name, p_title, p_name) values(?, ?, ?, ?) ";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jt.update(new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-                PreparedStatement pstmt = con.prepareStatement(sql, new String[]{"pid"});
+                PreparedStatement pstmt = con.prepareStatement(sql, new String[]{"p_number"});
                 pstmt.setLong(1, product.getP_number());
                 pstmt.setString(2, product.getStore_name());
                 pstmt.setString(3, product.getP_title());
@@ -48,15 +48,15 @@ public class ProductDAOImpl implements ProductDAO {
             }
         }, keyHolder);
 
-        Long pid = Long.valueOf(keyHolder.getKeys().get("pid").toString());
-        product.setP_number(pid);
+        Long pNum = Long.valueOf(keyHolder.getKeys().get("p_number").toString());
+        product.setP_number(pNum);
         return product;
     }
     //상품조회
     @Override
     public Product findByProductNum(Long pNum) {
         StringBuffer sql = new StringBuffer();
-        sql.append("select ");
+        sql.append("select * ");
         sql.append("from product_info ");
         sql.append("where P_NUMBER = ? ");
 

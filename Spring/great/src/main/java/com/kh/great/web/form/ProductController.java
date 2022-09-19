@@ -34,8 +34,10 @@ public class ProductController {
     @PostMapping("/add")
     public String add(@Valid @ModelAttribute("form") SaveForm saveForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         Product product = new Product();
-        BeanUtils.copyProperties(product, saveForm);
+        System.out.println(saveForm.toString());
+        BeanUtils.copyProperties(saveForm, product);
 
+        System.out.println("product -> " + product);
         Product savedProduct = productSVC.save(product);
 
         Long num = savedProduct.getP_number();
@@ -48,7 +50,7 @@ public class ProductController {
     public String findByProductNum(@PathVariable("num") Long num, Model model) {
         Product findedProduct = productSVC.findByProductNum(num);
         DetailForm detailForm = new DetailForm();
-        BeanUtils.copyProperties(findedProduct, detailForm);
+        BeanUtils.copyProperties(detailForm, findedProduct);
 
         model.addAttribute("form", detailForm);
 
@@ -61,7 +63,7 @@ public class ProductController {
         Product findedProduct = productSVC.findByProductNum(num);
 
         UpdateForm updateForm = new UpdateForm();
-        BeanUtils.copyProperties(findedProduct, updateForm);
+        BeanUtils.copyProperties(updateForm, findedProduct);
 
         model.addAttribute("form", updateForm);
 

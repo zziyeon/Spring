@@ -14,11 +14,6 @@ import java.util.List;
 public class ProductSVCImpl implements ProductSVC {
     private final ProductDAO productDAO;
 
-    @Override
-    public Long generatePnum() {
-        return productDAO.generatePnum();
-    }
-
     //상품 등록
     @Override
     public Product save(Product product) {

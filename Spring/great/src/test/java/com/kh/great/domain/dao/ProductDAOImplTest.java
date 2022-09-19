@@ -18,7 +18,7 @@ class ProductDAOImplTest {
   @Test
   @DisplayName("상품등록")
   void save() {
-    Product newProduct = new Product(1l, "여기가게", "맛좀 보시오", "딸기케이크");
+    Product newProduct = new Product(44l, "여기가게", "맛좀 보시오", "딸기케이크");
 
     testProduct = productDAO.save(newProduct);
     Assertions.assertThat(testProduct.getP_number()).isEqualTo(newProduct.getP_number());
@@ -28,15 +28,16 @@ class ProductDAOImplTest {
 
   }
 
-//  @Test
-//  @DisplayName("조회")
-//  void findByProductNum() {
-//
-//    Long p_number=33l;
-//    Product findedProduct = productDAO.findByProductNum(p_number);
-//    Assertions.assertThat(findedProduct.getP_number()).isEqualTo("33");
-//    log.info("findedProduct={}", findedProduct);
-//  }
+  @Test
+  @DisplayName("조회")
+  void findByProductNum() {
+
+    Long p_number= Long.valueOf(88);
+    Product findedProduct = productDAO.findByProductNum(p_number);
+    log.error("{}=>", findedProduct.getP_number());
+    Assertions.assertThat(findedProduct.getP_number()).isEqualTo(88);
+    log.info("findedProduct={}", findedProduct);
+  }
 
   @Test
   void update() {
