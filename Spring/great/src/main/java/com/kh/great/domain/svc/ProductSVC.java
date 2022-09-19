@@ -5,6 +5,8 @@ import com.kh.great.domain.Product;
 import java.util.List;
 
 public interface ProductSVC {
+    //상품id 생성
+    Long generatePnum();
     //상품등록
     Product save(Product product);
 

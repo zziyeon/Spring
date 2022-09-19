@@ -13,10 +13,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductSVCImpl implements ProductSVC {
     private final ProductDAO productDAO;
+
+    @Override
+    public Long generatePnum() {
+        return productDAO.generatePnum();
+    }
+
     //상품 등록
     @Override
     public Product save(Product product) {
-        return productDAO.save(product);
+        Long generatePnum= productDAO.generatePnum();
+        product.setP_number(generatePnum);
+        productDAO.save(product);
+
+        return productDAO.findByProductNum(generatePnum);
     }
     //상품 조회
     @Override

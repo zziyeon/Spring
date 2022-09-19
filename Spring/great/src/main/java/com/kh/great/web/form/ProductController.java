@@ -68,10 +68,10 @@ public class ProductController {
         return "product/updateForm";
     }
 
-    //수정 처리
-    @PostMapping("/{id}/edit")
-    public String edit(@PathVariable("num") Long num, @Valid @ModelAttribute("form") UpdateForm updateForm, BindingResult bindingResult) {
-        Product product = new Product();
-
-    }
+//    //수정 처리
+//    @PostMapping("/{id}/edit")
+//    public String edit(@PathVariable("num") Long num, @Valid @ModelAttribute("form") UpdateForm updateForm, BindingResult bindingResult) {
+//        Product product = new Product();
+//
+//    }
 }

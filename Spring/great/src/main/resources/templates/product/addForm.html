@@ -8,9 +8,11 @@
     <title>판매글 작성 | GREAT</title>
     <link rel="stylesheet" th:href="@{/css/common/common.css}">
     <link rel="stylesheet" th:href="@{/css/product/product_write.css}">
+    <script src="https://kit.fontawesome.com/132ba309f6.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<header th:insert="~{layout/common_ui::header}"></header>
+<div class="wrapper">
+<header th:replace="~{layout/common_ui::header}"></header>
 <form id="form" action="" method="post" th:object="${form}"></form>
     <main class="main container">
         <h2>판매글 작성</h2>
@@ -18,7 +20,7 @@
             <table class="write_tb">
                 <tr>
                     <th ><label for="title">글제목</label></th>
-                    <td colspan="3"><input class="title" type="text"  placeholder="제목을 입력하세요(30자 이내)"></td>
+                    <td colspan="3"><input class="title" type="text" id="title" placeholder="제목을 입력하세요(30자 이내)"></td>
                 </tr>
                 <tr>
                     <th><label for="pName">상품명</label></th>
@@ -79,18 +81,14 @@
             <div class="write-btn">
                 <button type="button" id="cancelBtn">취소</button>
                 <!-- <button id="tempSave">임시 저장</button> -->
-                <button type="submit" id="saveBtn"></button>
+                <button type="submit" id="saveBtn">등록</button>
             </div>
         </div>
     </main>
     <div th:replace="~{/layout/common_footer :: footerFragment}"></div>
+</div>
 </form>
 
-<script th:inline="javascript">
-    cancelBtn.addEventListener('click', e=>{
-        console.log('취소');
-        location.href=[[@{|/products}|}]];
-        });
-</script>
+
 </body>
 </html>

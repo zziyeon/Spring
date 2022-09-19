@@ -33,33 +33,23 @@ public class ProductDAOImpl implements ProductDAO {
     //상품등록
     @Override
     public Product save(Product product) {
-        StringBuffer sql = new StringBuffer();
-        sql.append("insert into product_info values(?,?,?,?,?,?,?,?,?,?,?,?,?) ");
+        String sql = "insert into product_info(p_number,store_name,p_title, p_name) values(?, ?, ?,?) ";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jt.update(new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-                PreparedStatement pstmt = con.prepareStatement(sql.toString(), new String[]{"p_number"});
+                PreparedStatement pstmt = con.prepareStatement(sql, new String[]{"pid"});
                 pstmt.setLong(1, product.getP_number());
-                pstmt.setLong(2, product.getOwner_number());
-                pstmt.setString(3, product.getStore_name());
-                pstmt.setString(4, product.getP_title());
-                pstmt.setString(5, product.getP_name());
-                pstmt.setString(6, product.getDeadline_time());
-                pstmt.setString(7, product.getP_category());
-                pstmt.setInt(8, product.getTotal_count());
-                pstmt.setInt(9, product.getNormal_price());
-                pstmt.setInt(10, product.getSale_price());
-                pstmt.setInt(11, product.getDiscount_rate());
-                pstmt.setInt(12, product.getPayment_option());
-                pstmt.setString(13, product.getDetail_info());
+                pstmt.setString(2, product.getStore_name());
+                pstmt.setString(3, product.getP_title());
+                pstmt.setString(4, product.getP_name());
                 return pstmt;
             }
-        },keyHolder);
+        }, keyHolder);
 
-        Long product_num = Long.valueOf(keyHolder.getKeys().get("p_number").toString());
-        product.setP_number(product_num);
+        Long pid = Long.valueOf(keyHolder.getKeys().get("pid").toString());
+        product.setP_number(pid);
         return product;
     }
     //상품조회
@@ -88,7 +78,7 @@ public class ProductDAOImpl implements ProductDAO {
         sql.append("SET p_title = ?, P_NAME=?, DEADLINE_TIME = ?, CATEGORY=?, TOTAL_COUNT = ?, REMAIN_COUNT=?, NORMAL_PRICE = ?, SALE_PRICE = ?, DISCOUNT_RATE=?, PAYMENT_OPTION=?, detail_info=? ");
         sql.append("WHERE p_number = ? ");
 
-        result=jt.update(sql.toString(), product.getP_title(), product.getP_name(), product.getDeadline_time(), product.getP_category(), product.getTotal_count(), product.getRemain_count(), product.getNormal_price(), product.getSale_price(), product.getDiscount_rate(), product.getPayment_option(), product.getDetail_info(), product.getP_number() );
+//        result=jt.update(sql.toString(), product.getP_title(), product.getP_name(), product.getDeadline_time(), product.getP_category(), product.getTotal_count(), product.getRemain_count(), product.getNormal_price(), product.getSale_price(), product.getDiscount_rate(), product.getPayment_option(), product.getDetail_info(), product.getP_number() );
 
         return result;
     }
@@ -110,10 +100,8 @@ public class ProductDAOImpl implements ProductDAO {
     //상품 삭제
     @Override
     public int deleteByProductNum(Long pNum) {
-        int result = 0;
         String sql = "delete from product_info where P_NUMBER=? ";
 
-        result = jt.update(sql, pNum);
-        return result;
+        return jt.update(sql, pNum);
     }
 }
