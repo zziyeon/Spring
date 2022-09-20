@@ -33,7 +33,7 @@ public class ProductDAOImpl implements ProductDAO {
     //상품등록
     @Override
     public Product save(Product product) {
-        String sql = "insert into product_info(p_number, store_name, p_title, p_name) values(?, ?, ?, ?) ";
+        String sql = "insert into product_info(p_number, store_name, p_title, p_name, CATEGORY, TOTAL_COUNT, REMAIN_COUNT ,NORMAL_PRICE, SALE_PRICE, DISCOUNT_RATE, PAYMENT_OPTION, DETAIL_INFO ) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jt.update(new PreparedStatementCreator() {
@@ -44,6 +44,14 @@ public class ProductDAOImpl implements ProductDAO {
                 pstmt.setString(2, product.getStore_name());
                 pstmt.setString(3, product.getP_title());
                 pstmt.setString(4, product.getP_name());
+                pstmt.setString(5, product.getP_category());
+                pstmt.setInt(6, product.getTotal_count());
+                pstmt.setInt(7, product.getTotal_count());
+                pstmt.setInt(8, product.getNormal_price());
+                pstmt.setInt(9, product.getSale_price());
+                pstmt.setFloat(10, (product.getNormal_price()-product.getSale_price())*Integer.parseInt("100")/product.getNormal_price());
+                pstmt.setString(11, product.getPayment_option());
+                pstmt.setString(12, product.getDetail_info());
                 return pstmt;
             }
         }, keyHolder);
@@ -56,7 +64,7 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     public Product findByProductNum(Long pNum) {
         StringBuffer sql = new StringBuffer();
-        sql.append("select * ");
+        sql.append("select  *  ");
         sql.append("from product_info ");
         sql.append("where P_NUMBER = ? ");
 

@@ -50,7 +50,7 @@ public class ProductController {
     public String findByProductNum(@PathVariable("num") Long num, Model model) {
         Product findedProduct = productSVC.findByProductNum(num);
         DetailForm detailForm = new DetailForm();
-        BeanUtils.copyProperties(detailForm, findedProduct);
+        BeanUtils.copyProperties(findedProduct, detailForm);
 
         model.addAttribute("form", detailForm);
 
@@ -63,17 +63,33 @@ public class ProductController {
         Product findedProduct = productSVC.findByProductNum(num);
 
         UpdateForm updateForm = new UpdateForm();
-        BeanUtils.copyProperties(updateForm, findedProduct);
+        BeanUtils.copyProperties(findedProduct, updateForm);
 
         model.addAttribute("form", updateForm);
 
         return "product/updateForm";
     }
 
-//    //수정 처리
-//    @PostMapping("/{id}/edit")
-//    public String edit(@PathVariable("num") Long num, @Valid @ModelAttribute("form") UpdateForm updateForm, BindingResult bindingResult) {
-//        Product product = new Product();
-//
-//    }
+    //수정 처리
+    @PostMapping("/{num}/edit")
+    public String edit(@PathVariable("num") Long num, @Valid @ModelAttribute("form") UpdateForm updateForm, BindingResult bindingResult) {
+        Product product = new Product();
+        BeanUtils.copyProperties(updateForm, product);
+
+        int updatedRow = productSVC.update(num,product);
+        if (updatedRow == 0) {
+            return "product/updateForm";
+        }
+        return "redirect:/products/{num}";
+    }
+
+    //삭제처리
+    @GetMapping("/{num}/del")
+    public String delete(@PathVariable("num") Long num) {
+        int deletedRow = productSVC.deleteByProductNum(num);
+        if (deletedRow == 0){
+            return "redirect:/products/"+num;
+        }
+        return "redirect:/products";
+    }
 }
