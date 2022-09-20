@@ -9,7 +9,6 @@
         <meta name="description" content="마감 할인 상품 소개">
         <meta name="keywords" content="food, sale">
         <meta name="author" content="KH 3팀">
-
 <!--        <title>$Title$</title>-->
         <link rel="stylesheet" th:href="@{/css/common/common.css}">
         <link rel="icon" th:href="@{/css/common/icon.svg}">
@@ -25,32 +24,10 @@
             <a href="" class="top-menu__login">로그인</a>
             <a href="" class="top-menu__cs">고객센터</a>
         </nav>
-        <div class="logo content"><a href="#">GR<span>EAT</span></a></div>
-        <nav class="bottom-menu content">
-            <div class="category">
-                <ul>
-                    <li class="region-category"> 지역 선택&nbsp;&nbsp;<i class="fa-solid fa-chevron-down"> </i>
-                        <ul>
-                            <li><a href="">남구</a></li>
-                            <li><a href="">중구</a></li>
-                            <li><a href="">북구</a></li>
-                            <li><a href="">동구</a></li>
-                            <li><a href="">울주군</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <div class="search">
-                <input type="text" class="search__search-box" placeholder="검색어를 입력하세요.">
-                <a href="" class="search__search-icon"><i class="fa-solid fa-magnifying-glass"></i></a>
-            </div>
-        </nav>
-        <!-- top버튼 페이지 오른쪽 하단에 위치함 -->
-        <div class="topbtn">
-            <a href="#top"><i class="fa-solid fa-angles-up"></i></a>
-        </div>
+        <th:block th:replace="~{layout/common_ui::common_header}"></th:block>
+        <div th:replace="~{layout/common_ui::topBtn}"></div>
     </header>
-    <!-- //header -->
+
     <!--고객회원-->
     <header class="header container" th:fragment="header_customer">
         <nav class="top-menu content">
@@ -65,32 +42,9 @@
             </li>
             <a href="" class="top-menu__cs">고객센터</a>
         </nav>
-        <div class="logo content"><a href="/메인/mem_main.html">GR<span>EAT</span></a></div>
-        <nav class="bottom-menu content">
-            <div class="category">
-                <ul>
-                    <li class="region-category"> 지역 선택&nbsp;&nbsp;<i class="fa-solid fa-chevron-down"> </i>
-                        <ul>
-                            <li><a href="/판매/남구_전체.html">남구</a></li>
-                            <li><a href="">중구</a></li>
-                            <li><a href="">북구</a></li>
-                            <li><a href="">동구</a></li>
-                            <li><a href="">울주군</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <div class="search">
-                <input type="text" class="search__search-box" placeholder="검색어를 입력하세요.">
-                <a href="" class="search__search-icon"><i class="fa-solid fa-magnifying-glass"></i></a>
-            </div>
-        </nav>
-        <!-- top버튼 -->
-        <div class="topbtn">
-            <a href="#top"><i class="fa-solid fa-angles-up"></i></a>
-        </div>
+        <th:block th:replace="~{layout/common_ui::common_header}"></th:block>
+        <div th:replace="~{layout/common_ui::topBtn}"></div>
     </header>
-    <!-- //header -->
 
     <!-- 점주회원 -->
     <header class="header container" th:fragment="header_owner">
@@ -106,13 +60,19 @@
             </li>
             <a href="" class="top-menu__cs">고객센터</a>
         </nav>
-        <div class="logo content"><a href="/메인/mem_main.html">GR<span>EAT</span></a></div>
+        <th:block th:replace="~{layout/common_ui::common_header}"></th:block>
+        <div th:replace="~{layout/common_ui::topBtn}"></div>
+    </header>
+
+    <!-- 공통 헤더 -->
+    <th:block th:fragment="common_header">
+        <div class="logo content"><a th:href="@{/great}">GR<span>EAT</span></a></div>
         <nav class="bottom-menu content">
             <div class="category">
                 <ul>
                     <li class="region-category"> 지역 선택&nbsp;&nbsp;<i class="fa-solid fa-chevron-down"> </i>
                         <ul>
-                            <li><a href="/판매/남구_전체.html">남구</a></li>
+                            <li><a th:href="@{/great/zonning}">남구</a></li>
                             <li><a href="">중구</a></li>
                             <li><a href="">북구</a></li>
                             <li><a href="">동구</a></li>
@@ -126,20 +86,14 @@
                 <a href="" class="search__search-icon"><i class="fa-solid fa-magnifying-glass"></i></a>
             </div>
         </nav>
-        <!-- top버튼 -->
-        <div class="topbtn">
-            <a href="#top"><i class="fa-solid fa-angles-up"></i></a>
-        </div>
-    </header>
-    <!-- //header -->
+    </th:block>
 
-    <!-- main -->
-    <main class="main container">
-        <!--=========+++++++++++++++++++++======= 여기 추가하기================================ -->
+    <!-- top버튼 -->
+    <div class="topbtn" th:fragment="topBtn">
+        <a href="#top"><i class="fa-solid fa-angles-up"></i></a>
+    </div>
 
-
-    </main>
-    <!-- //main -->
+    <!-- footer -->
     <footer class="footer container" th:fragment="footer">
         <p class="content">
             footer부분

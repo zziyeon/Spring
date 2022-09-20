@@ -76,7 +76,7 @@ public class ProductController {
         Product product = new Product();
         BeanUtils.copyProperties(updateForm, product);
 
-        int updatedRow = productSVC.update(num,product);
+        int updatedRow = productSVC.update(num, product);
         if (updatedRow == 0) {
             return "product/updateForm";
         }
@@ -87,8 +87,8 @@ public class ProductController {
     @GetMapping("/{num}/del")
     public String delete(@PathVariable("num") Long num) {
         int deletedRow = productSVC.deleteByProductNum(num);
-        if (deletedRow == 0){
-            return "redirect:/products/"+num;
+        if (deletedRow == 0) {
+            return "redirect:/products/" + num;
         }
         return "redirect:/products";
     }

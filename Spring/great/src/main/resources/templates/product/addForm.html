@@ -25,7 +25,7 @@
                         <td><input type="datetime-local" id="currentTime"></td>
                     </tr>
                     <tr>
-                        <th><label for="salType">업종 </label></th>
+                        <th><label for="p_category">업종 </label></th>
                         <td><select name="type of business" id="tob" th:field="*{p_category}">
                             <option value="tob" th:selected="selected" th:disabled="disabled">업종선택</option>
                             <option value="한식">한식</option>
@@ -37,13 +37,13 @@
                             <option value="도시락">도시락</option>
                             <option value="카페/디저트">카페/디저트</option>
                         </select></td>
-                        <th><label for="amount">판매 수량</label></th>
+                        <th><label for="total_count">판매 수량</label></th>
                         <td><input type="number" th:field="*{total_count}" min="0"></td>
                     </tr>
                     <tr>
-                        <th><label for="originalPrice">정상가</label></th>
+                        <th><label for="normal_price">정상가</label></th>
                         <td><input type="text" th:field="*{normal_price}" placeholder="숫자만 입력해주세요"></td>
-                        <th><label for="salePice" >할인가</label></th>
+                        <th><label for="sale_price" >할인가</label></th>
                         <td><input type="text" th:field="*{sale_price}" placeholder="숫자만 입력해주세요"></td>
                     </tr>
                     <tr>
