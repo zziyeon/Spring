@@ -48,13 +48,14 @@
         <section class="title content">오늘의 마감 할인!</section>
         <section class="items content">
             <div class="item" th:each="rec:${list}" th:data-product-num="${rec.p_number}">
-                <a href="" class="item__image"><img src="https://cdn.imweb.me/thumbnail/20210628/f9482d3bbe416.jpg"
+                <a th:href="@{/great/products/{p_number}(p_number=${(rec.p_number)})}" class="item__image"><img src="https://cdn.imweb.me/thumbnail/20210628/f9482d3bbe416.jpg"
                                                     alt=""></a>
-                <a href="#" class="item__title">[[${rec.p_name}]]<i id="heart" class="fa-solid fa-heart"></i></a>
-
+                <button class="heart_Btn"><i class="fa-regular fa-heart"></i></button>
+                <a href="#" class="item__title">[[${rec.p_name}]]</a>
                 <div class="item__price-box">
                     <div class="item__discount-rate">[[${rec.discount_rate}]]%</div>
                     <div class="item__price">[[${rec.sale_price}]]원</div>
+                    <div class="item__price--normal">[[${rec.normal_price}]]원</div>
                 </div>
                 <div class="item__time-box">
                     <div class="item__magam">마감시간</div>

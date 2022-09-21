@@ -18,7 +18,7 @@ import javax.validation.Valid;
 
 @Slf4j
 @Controller
-@RequestMapping("/products")
+@RequestMapping("/great/products")
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductSVC productSVC;
@@ -42,7 +42,7 @@ public class ProductController {
 
         Long num = savedProduct.getP_number();
         redirectAttributes.addAttribute("num", num);
-        return "redirect:/products/{num}";
+        return "redirect:/great/products/{num}";
     }
 
     //상품 개별 조회
@@ -80,7 +80,7 @@ public class ProductController {
         if (updatedRow == 0) {
             return "product/updateForm";
         }
-        return "redirect:/products/{num}";
+        return "redirect:/great/products/{num}";
     }
 
     //삭제처리
@@ -90,6 +90,6 @@ public class ProductController {
         if (deletedRow == 0) {
             return "redirect:/products/" + num;
         }
-        return "redirect:/products";
+        return "redirect:/great/products";
     }
 }

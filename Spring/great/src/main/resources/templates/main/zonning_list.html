@@ -25,8 +25,8 @@
                 <li><a href="">디저트</a></li>
             </ul>
         </section>
-        <div class="view_array">
-            <div class="view_array-total">총 6 건</div>
+        <div class="view_array" >
+            <div class="view_array-total">총 <span th:text="|${list.size}|"></span> 건</div>
             <div class="view_array-type">
                 <ul>
                     <li><a href="">높은 할인순</a></li>
@@ -37,9 +37,8 @@
         </div>
         <!-- main에 리스트들 -->
         <section class="items content">
-            <div class="item" th:each="rec:${list}" th:data-product-num="${rec.p_number}">
-                <a href="/판매/product_view.html" class="item__image"><img src="https://cdn.imweb.me/thumbnail/20210628/f9482d3bbe416.jpg"
-                                                                         alt=""></a>
+            <div class="item" th:each="rec : ${list}">
+                <a th:href="@{/great/products/{p_number}(p_number=${(rec.p_number)})}" class="item__image"><img src="https://cdn.imweb.me/thumbnail/20210628/f9482d3bbe416.jpg" alt=""></a>
                 <button class="heart_Btn"><i class="fa-regular fa-heart"></i></button>
                 <a href="/판매/product_view.html" class="item__title">[[${rec.p_name}]]</a>
                 <div class="item__price-box">

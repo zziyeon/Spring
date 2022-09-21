@@ -14,7 +14,7 @@ public class UpdateForm {
     private Integer remain_count;
     private Integer normal_price;    //정상가    NORMAL_PRICE	NUMBER(8,0)
     private Integer sale_price;      //할인가    SALE_PRICE	NUMBER(8,0)
-    private Float discount_rate;   //할인율    DISCOUNT_RATE	NUMBER(2,0)
+    private Integer discount_rate;   //할인율    DISCOUNT_RATE	NUMBER(2,0)
     private String payment_option;  //결제방식    PAYMENT_OPTION	NUMBER(1,0)
     private ClobType detail_info;     //상품설명    DETAIL_INFO	CLOB
 }

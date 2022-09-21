@@ -12,6 +12,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
@@ -33,7 +34,7 @@ public class ProductDAOImpl implements ProductDAO {
     //상품등록
     @Override
     public Product save(Product product) {
-        String sql = "insert into product_info(p_number, store_name, p_title, p_name, CATEGORY, TOTAL_COUNT, REMAIN_COUNT ,NORMAL_PRICE, SALE_PRICE, DISCOUNT_RATE, PAYMENT_OPTION, DETAIL_INFO ) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+        String sql = "insert into product_info(p_number, store_name, p_title, p_name, DEADLINE_TIME, CATEGORY, TOTAL_COUNT, REMAIN_COUNT ,NORMAL_PRICE, SALE_PRICE, DISCOUNT_RATE, PAYMENT_OPTION, DETAIL_INFO ) values(?, ?, ?, ?, TO_DATE(?,'YYYY-MM-DD\"T\"HH24:MI'), ?, ?, ?, ?, ?, ?, ?, ?) ";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jt.update(new PreparedStatementCreator() {
@@ -44,14 +45,16 @@ public class ProductDAOImpl implements ProductDAO {
                 pstmt.setString(2, product.getStore_name());
                 pstmt.setString(3, product.getP_title());
                 pstmt.setString(4, product.getP_name());
-                pstmt.setString(5, product.getP_category());
-                pstmt.setInt(6, product.getTotal_count());
+                pstmt.setDate(5, (Date) product.getDeadline_time());
+                log.info("product.getDeadline_time()=>{}", product.getDeadline_time());
+                pstmt.setString(6, product.getP_category());
                 pstmt.setInt(7, product.getTotal_count());
-                pstmt.setInt(8, product.getNormal_price());
-                pstmt.setInt(9, product.getSale_price());
-                pstmt.setFloat(10, (product.getNormal_price()-product.getSale_price())*Integer.parseInt("100")/product.getNormal_price());
-                pstmt.setString(11, product.getPayment_option());
-                pstmt.setString(12, product.getDetail_info());
+                pstmt.setInt(8, product.getTotal_count());
+                pstmt.setInt(9, product.getNormal_price());
+                pstmt.setInt(10, product.getSale_price());
+                pstmt.setInt(11, (product.getNormal_price()-product.getSale_price())*100/product.getNormal_price());
+                pstmt.setString(12, product.getPayment_option());
+                pstmt.setString(13, product.getDetail_info());
                 return pstmt;
             }
         }, keyHolder);
@@ -96,7 +99,7 @@ public class ProductDAOImpl implements ProductDAO {
     public List<Product> findAll() {
         StringBuffer sql = new StringBuffer();
 
-        sql.append("select p_name, DISCOUNT_RATE, SALE_PRICE, NORMAL_PRICE,DEADLINE_TIME ");
+        sql.append("select p_number, p_name, DISCOUNT_RATE, SALE_PRICE, NORMAL_PRICE,DEADLINE_TIME ");
         sql.append(" from product_info");
         sql.append(" order by P_NUMBER desc");
 

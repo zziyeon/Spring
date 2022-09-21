@@ -54,7 +54,8 @@
                             </dl>
                             <dl>
                                 <dt>마감시간</dt>
-                                <dd>2022-07-06(목) 21:00</dd>
+                                <dd name="deadline_time" th:text="${form.deadline_time}"></dd>
+<!--                                <dd name="deadline_time"  th:text="${#dates.format(form.deadline_time, 'yyyy-MM-dd HH:mm')}"></dd>-->
                             </dl>
                             <dl>
                                 <dt>결제 가능 방식</dt>
@@ -313,16 +314,21 @@
 </form>
 
 <script th:inline="javascript">
+    //<!-- 목록 -->
+    document.querySelector('.btn_list').addEventListener('click', e=>{
+        console.log('수정');
+        location.href = [[@{|/great/zonning|}]];
+    });
     //<!-- 수정 -->
     document.querySelector('.btn_modify').addEventListener('click', e=>{
         console.log('수정');
-        location.href = [[@{|/products/${form.p_number}/edit|}]];
+        location.href = [[@{|/great/products/${form.p_number}/edit|}]];
     });
     //<!-- 삭제 -->
     document.querySelector('.btn_del').addEventListener('click', e=>{
         if(!confirm('삭제하시겟습니까?')) return;
         console.log('삭제');
-        location.href = [[@{|/products/${form.p_number}/del|}]];
+        location.href = [[@{|/great/products/${form.p_number}/del|}]];
     });
 </script>
 </body>
