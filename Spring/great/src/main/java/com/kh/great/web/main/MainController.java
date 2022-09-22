@@ -1,7 +1,7 @@
-package com.kh.great;
+package com.kh.great.web.main;
 
 import com.kh.great.domain.Product;
-import com.kh.great.domain.svc.ProductSVC;
+import com.kh.great.domain.svc.product.ProductSVC;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;

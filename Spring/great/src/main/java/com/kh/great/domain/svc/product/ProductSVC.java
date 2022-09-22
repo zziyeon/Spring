@@ -1,4 +1,4 @@
-package com.kh.great.domain.svc;
+package com.kh.great.domain.svc.product;
 
 import com.kh.great.domain.Product;
 

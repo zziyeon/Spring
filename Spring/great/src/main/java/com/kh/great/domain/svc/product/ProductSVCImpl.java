@@ -1,6 +1,6 @@
-package com.kh.great.domain.svc;
+package com.kh.great.domain.svc.product;
 
-import com.kh.great.domain.dao.ProductDAO;
+import com.kh.great.domain.dao.product.ProductDAO;
 import com.kh.great.domain.Product;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

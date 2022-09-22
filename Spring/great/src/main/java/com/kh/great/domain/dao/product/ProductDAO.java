@@ -1,4 +1,4 @@
-package com.kh.great.domain.dao;
+package com.kh.great.domain.dao.product;
 
 import com.kh.great.domain.Product;
 
