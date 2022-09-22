@@ -45,7 +45,6 @@ public class ProductSVCImpl implements ProductSVC {
     }
 
     //상품 관리 목록
-
     @Override
     public List<Product> pManage(Long ownerNumber) {
         return productDAO.pManage(ownerNumber);
