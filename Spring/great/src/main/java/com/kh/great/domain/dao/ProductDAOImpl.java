@@ -34,33 +34,32 @@ public class ProductDAOImpl implements ProductDAO {
     //상품등록
     @Override
     public Product save(Product product) {
-        String sql = "insert into product_info(p_number, store_name, p_title, p_name, DEADLINE_TIME, CATEGORY, TOTAL_COUNT, REMAIN_COUNT ,NORMAL_PRICE, SALE_PRICE, DISCOUNT_RATE, PAYMENT_OPTION, DETAIL_INFO ) values(?, ?, ?, ?, TO_DATE(?,'YYYY-MM-DD\"T\"HH24:MI'), ?, ?, ?, ?, ?, ?, ?, ?) ";
+        String sql = "insert into product_info(p_number, p_title, p_name, DEADLINE_TIME, CATEGORY, TOTAL_COUNT, REMAIN_COUNT ,NORMAL_PRICE, SALE_PRICE, DISCOUNT_RATE, PAYMENT_OPTION, DETAIL_INFO ) values(?, ?, ?, TO_DATE(?,'YYYY-MM-DD\"T\"HH24:MI'), ?, ?, ?, ?, ?, ?, ?, ?) ";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jt.update(new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
                 PreparedStatement pstmt = con.prepareStatement(sql, new String[]{"p_number"});
-                pstmt.setLong(1, product.getP_number());
-                pstmt.setString(2, product.getStore_name());
-                pstmt.setString(3, product.getP_title());
-                pstmt.setString(4, product.getP_name());
-                pstmt.setDate(5, (Date) product.getDeadline_time());
-                log.info("product.getDeadline_time()=>{}", product.getDeadline_time());
-                pstmt.setString(6, product.getP_category());
-                pstmt.setInt(7, product.getTotal_count());
-                pstmt.setInt(8, product.getTotal_count());
-                pstmt.setInt(9, product.getNormal_price());
-                pstmt.setInt(10, product.getSale_price());
-                pstmt.setInt(11, (product.getNormal_price()-product.getSale_price())*100/product.getNormal_price());
-                pstmt.setString(12, product.getPayment_option());
-                pstmt.setString(13, product.getDetail_info());
+                pstmt.setLong(1, product.getPNumber());
+                pstmt.setString(2, product.getPTitle());
+                pstmt.setString(3, product.getPName());
+                pstmt.setDate(4, (Date) product.getDeadlineTime());
+                log.info("product.getDeadline_time()=>{}", product.getDeadlineTime());
+                pstmt.setString(5, product.getPCategory());
+                pstmt.setInt(6, product.getTotalCount());
+                pstmt.setInt(7, product.getTotalCount());
+                pstmt.setInt(8, product.getNormalPrice());
+                pstmt.setInt(9, product.getSalePrice());
+                pstmt.setInt(10, (product.getNormalPrice()-product.getSalePrice())*100/product.getNormalPrice());
+                pstmt.setString(11, product.getPaymentOption());
+                pstmt.setString(12, product.getDetailInfo());
                 return pstmt;
             }
         }, keyHolder);
 
         Long pNum = Long.valueOf(keyHolder.getKeys().get("p_number").toString());
-        product.setP_number(pNum);
+        product.setPNumber(pNum);
         return product;
     }
     //상품조회
@@ -68,8 +67,8 @@ public class ProductDAOImpl implements ProductDAO {
     public Product findByProductNum(Long pNum) {
         StringBuffer sql = new StringBuffer();
         sql.append("select  *  ");
-        sql.append("from product_info ");
-        sql.append("where P_NUMBER = ? ");
+        sql.append("from product_info P, member M ");
+        sql.append("where p.owner_number = m.mem_number and p_number=? ");
 
         Product product = null;
         try {
@@ -114,5 +113,23 @@ public class ProductDAOImpl implements ProductDAO {
         String sql = "delete from product_info where P_NUMBER=? ";
 
         return jt.update(sql, pNum);
+    }
+
+    //상품 관리
+    public List<Product> pManage(Long ownerNumber) {
+        StringBuffer sql = new StringBuffer();
+
+        sql.append("select p.P_NUMBER, p.P_STATUS, p.P_NAME, p.SALE_PRICE, p.REMAIN_COUNT, p.TOTAL_COUNT ");
+        sql.append("from product_info P, member M ");
+        sql.append("where p.owner_number = m.mem_number and m.mem_type='owner' and p.owner_number=? ");
+
+        List<Product> result =null;
+        try {
+            result= jt.query(sql.toString(), new BeanPropertyRowMapper<>(Product.class), ownerNumber);
+        } catch (DataAccessException e) {
+            log.info("조회할 회원이 없습니다. 회원번호={}", ownerNumber);
+        }
+
+        return result;
     }
 }

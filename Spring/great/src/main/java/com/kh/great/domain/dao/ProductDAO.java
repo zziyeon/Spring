@@ -21,4 +21,7 @@ public interface ProductDAO {
 
     //상품삭제
     int deleteByProductNum(Long pNum);
+
+    //상품관리목록
+    List<Product> pManage(Long ownerNumber);
 }

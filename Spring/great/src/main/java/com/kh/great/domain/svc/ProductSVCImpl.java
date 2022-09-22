@@ -18,7 +18,7 @@ public class ProductSVCImpl implements ProductSVC {
     @Override
     public Product save(Product product) {
         Long generatePnum= productDAO.generatePnum();
-        product.setP_number(generatePnum);
+        product.setPNumber(generatePnum);
         productDAO.save(product);
 
         return productDAO.findByProductNum(generatePnum);
@@ -42,5 +42,12 @@ public class ProductSVCImpl implements ProductSVC {
     @Override
     public int deleteByProductNum(Long pNum) {
         return productDAO.deleteByProductNum(pNum);
+    }
+
+    //상품 관리 목록
+
+    @Override
+    public List<Product> pManage(Long ownerNumber) {
+        return productDAO.pManage(ownerNumber);
     }
 }

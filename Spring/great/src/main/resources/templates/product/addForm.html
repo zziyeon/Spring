@@ -15,18 +15,18 @@
             <div class="p-write-info">
                 <table class="write_tb">
                     <tr>
-                        <th ><label for="p_title">글제목</label></th>
-                        <td colspan="3"><input class="title" type="text" th:field="*{p_title}"  placeholder="제목을 입력하세요(30자 이내)"></td>
+                        <th ><label for="pTitle">글제목</label></th>
+                        <td colspan="3"><input class="title" type="text" th:field="*{pTitle}"  placeholder="제목을 입력하세요(30자 이내)"></td>
                     </tr>
                     <tr>
-                        <th><label for="p_name">상품명</label></th>
-                        <td><input type="text" th:field="*{p_name}" placeholder="20자 이내"></td>
-                        <th><label for="deadline_time">마감시간</label></th>
-                        <td><input type="datetime-local" id="currentTime" th:field="*{deadline_time}"></td>
+                        <th><label for="pName">상품명</label></th>
+                        <td><input type="text" th:field="*{pName}" placeholder="20자 이내"></td>
+                        <th><label for="deadlineTime">마감시간</label></th>
+                        <td><input type="datetime-local" id="currentTime" th:field="*{deadlineTime}"></td>
                     </tr>
                     <tr>
-                        <th><label for="p_category">업종 </label></th>
-                        <td><select name="type of business" id="tob" th:field="*{p_category}">
+                        <th><label for="pCategory">업종 </label></th>
+                        <td><select name="type of business" id="tob" th:field="*{pCategory}">
                             <option value="tob" th:selected="selected" th:disabled="disabled">업종선택</option>
                             <option value="한식">한식</option>
                             <option value="중식">중식</option>
@@ -37,18 +37,18 @@
                             <option value="도시락">도시락</option>
                             <option value="카페/디저트">카페/디저트</option>
                         </select></td>
-                        <th><label for="total_count">판매 수량</label></th>
-                        <td><input type="number" th:field="*{total_count}" min="0"></td>
+                        <th><label for="totalCount">판매 수량</label></th>
+                        <td><input type="number" th:field="*{totalCount}" min="0"></td>
                     </tr>
                     <tr>
-                        <th><label for="normal_price">정상가</label></th>
-                        <td><input type="text" th:field="*{normal_price}" placeholder="숫자만 입력해주세요"></td>
-                        <th><label for="sale_price" >할인가</label></th>
-                        <td><input type="text" th:field="*{sale_price}" placeholder="숫자만 입력해주세요"></td>
+                        <th><label for="normalPrice">정상가</label></th>
+                        <td><input type="text" th:field="*{normalPrice}" placeholder="숫자만 입력해주세요"></td>
+                        <th><label for="salePrice" >할인가</label></th>
+                        <td><input type="text" th:field="*{salePrice}" placeholder="숫자만 입력해주세요"></td>
                     </tr>
                     <tr>
-                        <th><label for="">결제 방식</label></th>
-                        <td><select name="" th:field="*{payment_option}">
+                        <th><label for="paymentOption">결제 방식</label></th>
+                        <td><select name="" th:field="*{paymentOption}">
                             <option value="온라인 결제 & 현장 결제">온라인 결제 & 현장 결제</option>
                             <option value="온라인 결제">온라인 결제</option>
                             <option value="현장 결제">현장 결제</option>
@@ -65,8 +65,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <th><label for="">상세설명</label></th>
-                        <td colspan="3"><textarea name="detail_info" rows="10" autofocusw></textarea></td>
+                        <th><label for="detailInfo">상세설명</label></th>
+                        <td colspan="3"><textarea name="detailInfo" rows="10" autofocusw></textarea></td>
                     </tr>
 
                     <!-- <tr>

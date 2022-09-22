@@ -20,4 +20,7 @@ public interface ProductSVC {
 
     //상품삭제
     int deleteByProductNum(Long pNum);
+
+    //상품 관리
+    List<Product> pManage(Long ownerNumber);
 }

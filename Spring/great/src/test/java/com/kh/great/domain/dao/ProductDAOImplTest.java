@@ -34,8 +34,8 @@ class ProductDAOImplTest {
   void findByProductNum() {
     Long p_number= 11l;
     Product findedProduct = productDAO.findByProductNum(p_number);
-    log.error("{}=>", findedProduct.getP_number());
-    Assertions.assertThat(findedProduct.getP_number()).isEqualTo(11);
+    log.error("{}=>", findedProduct.getPNumber());
+    Assertions.assertThat(findedProduct.getPNumber()).isEqualTo(11);
     log.info("findedProduct={}", findedProduct);
   }
 

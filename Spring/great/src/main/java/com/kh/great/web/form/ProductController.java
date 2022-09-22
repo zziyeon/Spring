@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -40,7 +41,7 @@ public class ProductController {
         System.out.println("product -> " + product);
         Product savedProduct = productSVC.save(product);
 
-        Long num = savedProduct.getP_number();
+        Long num = savedProduct.getPNumber();
         redirectAttributes.addAttribute("num", num);
         return "redirect:/great/products/{num}";
     }
@@ -91,5 +92,13 @@ public class ProductController {
             return "redirect:/products/" + num;
         }
         return "redirect:/great/products";
+    }
+    //상품관리
+    @GetMapping("/{ownerNumber}/manage")
+    public String manage(@PathVariable("ownerNumber") Long ownerNumber, Model model) {
+        List<Product> list = productSVC.pManage(ownerNumber);
+        model.addAttribute("list", list);
+
+        return "product/manage";
     }
 }
