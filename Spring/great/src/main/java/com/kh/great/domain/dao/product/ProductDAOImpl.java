@@ -1,5 +1,6 @@
 package com.kh.great.domain.dao.product;
 
+import com.kh.great.domain.Member;
 import com.kh.great.domain.Product;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,12 +8,14 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -121,11 +124,19 @@ public class ProductDAOImpl implements ProductDAO {
 
         sql.append("select p.P_NUMBER, p.P_STATUS, p.P_NAME, p.SALE_PRICE, p.REMAIN_COUNT, p.TOTAL_COUNT ");
         sql.append("from product_info P, member M ");
-        sql.append("where p.owner_number = m.mem_number and m.mem_type='owner' and p.owner_number=? ");
+        sql.append("where p.owner_number = m.mem_number and m.mem_type='owner' and p.owner_number=10 ");
 
         List<Product> result =null;
         try {
-            result= jt.query(sql.toString(), new BeanPropertyRowMapper<>(Product.class), ownerNumber);
+            result= jt.query(sql.toString(),new RowMapper<Product>(){
+                @Override
+                public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    Product product = (new BeanPropertyRowMapper<>(Product.class)).mapRow(rs, rowNum);
+                    Member member = (new BeanPropertyRowMapper<>(Member.class)).mapRow(rs,rowNum);
+                    product.setMember(member);
+                    return product;
+                }
+            });
         } catch (DataAccessException e) {
             log.info("조회할 회원이 없습니다. 회원번호={}", ownerNumber);
         }

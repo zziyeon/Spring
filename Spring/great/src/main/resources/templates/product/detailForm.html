@@ -317,18 +317,18 @@
     //<!-- 목록 -->
     document.querySelector('.btn_list').addEventListener('click', e=>{
         console.log('수정');
-        location.href = [[@{|/great/zonning|}]];
+        location.href = [[@{|/zonning|}]];
     });
     //<!-- 수정 -->
     document.querySelector('.btn_modify').addEventListener('click', e=>{
         console.log('수정');
-        location.href = [[@{|/great/products/${form.pNumber}/edit|}]];
+        location.href = [[@{|/products/${form.pNumber}/edit|}]];
     });
     //<!-- 삭제 -->
     document.querySelector('.btn_del').addEventListener('click', e=>{
         if(!confirm('삭제하시겟습니까?')) return;
         console.log('삭제');
-        location.href = [[@{|/great/products/${form.pNumber}/del|}]];
+        location.href = [[@{|/products/${form.pNumber}/del|}]];
     });
 </script>
 </body>

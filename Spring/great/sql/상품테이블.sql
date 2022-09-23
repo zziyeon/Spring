@@ -28,3 +28,5 @@ drop sequence PRODUCT_P_NUMBER_SEQ;
 -- 상품번호 시퀀스 생성
 create sequence PRODUCT_P_NUMBER_SEQ;
 
+-- 판매상태(0,1만 선택 가능)
+ALTER TABLE PRODUCT_INFO ADD CONSTRAINT porduct_info_p_status_ck CHECK (P_STATUS =0 OR P_STATUS =1);
