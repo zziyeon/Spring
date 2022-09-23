@@ -28,5 +28,7 @@ public class Product {
     private LocalDateTime uDate;    //수정일    U_DATE	DATE DEFAULT SYSDATE
     private Integer pStatus;        //판매상태    P_STATUS	NUMBER(1,0)
 
+
+//    private String memStoreName;
     private Member member;
 }
