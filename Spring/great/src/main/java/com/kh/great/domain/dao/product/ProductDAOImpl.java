@@ -12,7 +12,6 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
@@ -44,7 +43,7 @@ public class ProductDAOImpl implements ProductDAO {
                 pstmt.setLong(1, product.getPNumber());
                 pstmt.setString(2, product.getPTitle());
                 pstmt.setString(3, product.getPName());
-                pstmt.setDate(4, (Date) product.getDeadlineTime());
+                pstmt.setString(4, product.getDeadlineTime());
                 log.info("product.getDeadline_time()=>{}", product.getDeadlineTime());
                 pstmt.setString(5, product.getPCategory());
                 pstmt.setInt(6, product.getTotalCount());
@@ -54,6 +53,7 @@ public class ProductDAOImpl implements ProductDAO {
                 pstmt.setInt(10, (product.getNormalPrice()-product.getSalePrice())*100/product.getNormalPrice());
                 pstmt.setString(11, product.getPaymentOption());
                 pstmt.setString(12, product.getDetailInfo());
+
                 return pstmt;
             }
         }, keyHolder);
@@ -85,10 +85,10 @@ public class ProductDAOImpl implements ProductDAO {
         StringBuffer sql = new StringBuffer();
 
         sql.append("update product_info ");
-        sql.append("SET p_title = ?, P_NAME=?, DEADLINE_TIME = ?, CATEGORY=?, TOTAL_COUNT = ?, REMAIN_COUNT=?, NORMAL_PRICE = ?, SALE_PRICE = ?, DISCOUNT_RATE=?, PAYMENT_OPTION=?, detail_info=? ");
+        sql.append("SET p_title = ?, P_NAME=?, DEADLINE_TIME = TO_DATE(?,'YYYY-MM-DD\"T\"HH24:MI'), CATEGORY=?, REMAIN_COUNT=?, NORMAL_PRICE = ?, SALE_PRICE = ?, DISCOUNT_RATE=?, PAYMENT_OPTION=?, detail_info=? ");
         sql.append("WHERE p_number = ? ");
 
-//        result=jt.update(sql.toString(), product.getP_title(), product.getP_name(), product.getDeadline_time(), product.getP_category(), product.getTotal_count(), product.getRemain_count(), product.getNormal_price(), product.getSale_price(), product.getDiscount_rate(), product.getPayment_option(), product.getDetail_info(), product.getP_number() );
+        result=jt.update(sql.toString(), product.getPTitle(), product.getPName(), product.getDeadlineTime(), product.getPCategory(), product.getRemainCount(), product.getNormalPrice(), product.getSalePrice(), (product.getNormalPrice()-product.getSalePrice())*100/product.getNormalPrice(), product.getPaymentOption(), product.getDetailInfo(), pNum );
 
         return result;
     }

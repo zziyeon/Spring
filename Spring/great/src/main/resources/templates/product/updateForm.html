@@ -16,7 +16,7 @@
                 <table class="write_tb">
                     <tr>
                         <th ><label for="pTitle">글제목</label></th>
-                        <td colspan="3"><input class="title" type="text" th:field="*{pTitle}"  placeholder="제목을 입력하세요(30자 이내)"></td>
+                        <td colspan="3"><input class="title" type="text" th:field="*{pTitle}" placeholder="제목을 입력하세요(30자 이내)"></td>
                     </tr>
                     <tr>
                         <th><label for="pName">상품명</label></th>
@@ -65,7 +65,7 @@
                     </tr>
                     <tr>
                         <th><label for="detailInfo">상세설명</label></th>
-                        <td colspan="3"><textarea name="detail_info" th:text="${detailInfo}" rows="10" autofocusw></textarea></td>
+                        <td colspan="3"><textarea name="detailInfo" th:field="*{detailInfo}" rows="10" autofocusw></textarea></td>
                     </tr>
 
                     <!-- <tr>

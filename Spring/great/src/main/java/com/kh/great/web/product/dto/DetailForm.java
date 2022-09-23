@@ -1,9 +1,6 @@
 package com.kh.great.web.product.dto;
 
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.util.Date;
 
 @Data
 public class DetailForm {
@@ -12,8 +9,8 @@ public class DetailForm {
     private String memStoreName;       //가게명
     private String pTitle;          //상품 제목    P_TITLE	VARCHAR2(90 BYTE)
     private String pName;           //상품명    P_NAME	VARCHAR2(60 BYTE)
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
-    private Date deadlineTime;    //마감일자    DEADLINE_TIME	DATE
+//    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
+    private String deadlineTime;    //마감일자    DEADLINE_TIME	DATE
 //    private String pCategory;      //업종카테고리    CATEGORY	VARCHAR2(17 BYTE)
 //    private Integer totalCount;     //총수량    TOTAL_COUNT	NUMBER(5,0)
     private Integer remainCount;    //남은 수량    REMAIN_COUNT	NUMBER(5,0)

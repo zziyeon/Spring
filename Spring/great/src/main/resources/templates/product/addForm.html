@@ -54,7 +54,7 @@
                             <option value="현장 결제">현장 결제</option>
                         </select></td>
                         <th><label for="">첨부파일</label></th>
-                        <td><input type="file" th:field="*{files}" accept="image/jpg, image/jpeg, image/png" th:multiple="multiple"><a href="#">삭제</a></td>
+                        <td><input type="file" accept="image/jpg, image/jpeg, image/png" th:multiple="multiple"><a href="#">삭제</a></td>
                     </tr>
                     <tr >
                         <td colspan="4">
@@ -66,7 +66,7 @@
                     </tr>
                     <tr>
                         <th><label for="detailInfo">상세설명</label></th>
-                        <td colspan="3"><textarea name="detailInfo" rows="10" autofocusw></textarea></td>
+                        <td colspan="3"><textarea name="detailInfo" th:field="*{detailInfo}" rows="10" autofocusw></textarea></td>
                     </tr>
 
                     <!-- <tr>
