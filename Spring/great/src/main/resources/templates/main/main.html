@@ -59,7 +59,7 @@
                 </div>
                 <div class="item__time-box">
                     <div class="item__magam">마감시간</div>
-                    <div class="item__time">06:00 P.M.</div>
+                    <div class="item__time" th:text="${#strings.substring(rec.deadlineTime,11,16)}"></div>
                 </div>
             </div>
         </section>
