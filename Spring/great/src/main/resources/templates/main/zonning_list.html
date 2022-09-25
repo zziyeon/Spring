@@ -9,7 +9,6 @@
 <body>
 <div class="wrapper">
     <header th:replace="~{layout/common_ui::header_nonmember}"></header>
-
     <main class="main container">
         <section class="title content">남구</section>
         <section class="food-type">
@@ -29,9 +28,10 @@
             <div class="view_array-total">총 <span th:text="|${list.size}|"></span> 건</div>
             <div class="view_array-type">
                 <ul>
-                    <li><a href="">높은 할인순</a></li>
-                    <li><a href="">낮은 가격순</a></li>
-                    <li><a href="">높은 가격순</a></li>
+                    <li><a href="javascriot: recentList();">최신순</a></li>
+                    <li><a href="javascriot: discountListDesc();">높은 할인순</a></li>
+                    <li><a href="javascriot: priceList();">낮은 가격순</a></li>
+                    <li><a href="javascriot: priceListDesc();">높은 가격순</a></li>
                 </ul>
             </div>
         </div>
@@ -40,5 +40,57 @@
     </main>
     <footer th:replace="~{layout/common_ui::footer}"></footer>
 </div>
+<script>
+    // 전체 목록 가져오기
+    findAll();
+
+    // 최신순 클릭시
+    function recentList() {
+
+    }
+
+    // 높은 할인순 클릭시
+    function discountListDesc() {
+
+    }
+
+    // 낮은 가격순 클릭시
+    function priceList() {
+
+    }
+
+    // 높은 가격순 클릭시
+    function priceListDesc() {
+        const url=`http://localhost:9080/api/zonning/priceListDesc`;
+        fetch(url, {
+            method: 'GET';
+            headers: {
+                'Accept': 'application/json';
+            }
+        }).then(res=> {
+
+        }
+    }
+
+    // 목록
+    function findAll(){
+        const url=`http://localhost:9080/api/zonning`;
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json';
+            }
+        }).then(res=>{
+            console.log(res);
+            if(res.header.rtcd=='00'){
+                const result = res.data.map(product => {
+                    return `  `;
+                });
+                console.log(result.join(''));
+<!--                document.querySelector('#productList .wrap .body').innerHTML=result.join('');-->
+            }
+        }).catch(err=>console.log(err));
+    }
+</script>
 </body>
 </html>

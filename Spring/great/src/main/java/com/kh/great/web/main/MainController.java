@@ -37,4 +37,12 @@ public class MainController {
 
         return "main/zonning_list";
     }
+
+//    // 상품 검색
+//    public String select(Model model, String findStr) {
+//        List<Product> list = productSVC.select(findStr);
+//        model.addAttribute("list", list);
+//
+//        return
+//    }
 }

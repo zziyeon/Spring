@@ -26,6 +26,13 @@ public class ProductSVCImpl implements ProductSVC {
     public Product findByProductNum(Long pNum) {
         return productDAO.findByProductNum(pNum);
     }
+
+    // 상품 검색
+    @Override
+    public List<Product> select(String findStr) {
+        return productDAO.select(findStr);
+    }
+
     //상품 수정
     @Override
     public int update(Long pNum, Product product) {
@@ -52,5 +59,27 @@ public class ProductSVCImpl implements ProductSVC {
     @Override
     public List<Product> pManage(Long ownerNumber) {
         return productDAO.pManage(ownerNumber);
+    }
+
+    //------------------------------------------
+    // 상품 최신순 목록
+    @Override
+    public List<Product> recentList() {
+        return productDAO.recentList();
+    }
+    // 상품 높은 할인순 목록
+    @Override
+    public List<Product> discountListDesc() {
+        return productDAO.discountListDesc();
+    }
+    // 상품 높은 가격순 목록
+    @Override
+    public List<Product> priceList() {
+        return productDAO.priceList();
+    }
+    // 상품 높은 가격순 목록
+    @Override
+    public List<Product> priceListDesc() {
+        return productDAO.priceListDesc();
     }
 }

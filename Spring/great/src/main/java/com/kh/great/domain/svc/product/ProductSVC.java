@@ -11,6 +11,9 @@ public interface ProductSVC {
     //상품조회
     Product findByProductNum(Long pNum);
 
+    // 상품 검색
+    List<Product> select(String findStr);
+
     //상품변경
     int update(Long pNum, Product product);
 
@@ -25,4 +28,17 @@ public interface ProductSVC {
 
     //상품 관리
     List<Product> pManage(Long ownerNumber);
+
+//----------------------------------------------
+    // 상품 최신순 목록
+    List <Product> recentList();
+
+    // 상품 높은 할인순 목록
+    List <Product> discountListDesc();
+
+    // 상품 높은 가격순 목록
+    List <Product> priceList();
+
+    // 상품 높은 가격순 목록
+    List <Product> priceListDesc();
 }

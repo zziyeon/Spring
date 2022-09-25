@@ -5,13 +5,14 @@ import com.kh.great.domain.Product;
 import java.util.List;
 
 public interface ProductDAO {
-//    //상품번호 생성
-//    Long generatePnum();
     //상품등록
     Long save(Product product);
 
     //상품조회
     Product findByProductNum(Long pNum);
+
+    // 상품 검색
+    List<Product> select(String findStr);
 
     //상품변경
     int update(Long pNum, Product product);
@@ -27,4 +28,17 @@ public interface ProductDAO {
 
     //상품관리목록
     List<Product> pManage(Long ownerNumber);
+
+    //------------------------------------
+    // 상품 최신순 목록
+    List <Product> recentList();
+
+    // 상품 높은 할인순 목록
+    List <Product> discountListDesc();
+
+    // 상품 높은 가격순 목록
+    List <Product> priceList();
+
+    // 상품 높은 가격순 목록
+    List <Product> priceListDesc();
 }

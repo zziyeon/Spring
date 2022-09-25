@@ -25,14 +25,6 @@ import java.util.List;
 public class ProductDAOImpl implements ProductDAO {
     private final JdbcTemplate jt;
 
-//    //상품번호 생성
-//    @Override
-//    public Long generatePnum() {
-//        String sql = "select product_p_number_seq.nextval from dual";
-//        Long productNum = jt.queryForObject(sql, Long.class);
-//        return productNum;
-//    }
-
     //상품등록
     @Override
     public Long save(Product product) {
@@ -64,8 +56,6 @@ public class ProductDAOImpl implements ProductDAO {
             }
         }, keyHolder);
 
-//        Long pNum = Long.valueOf(keyHolder.getKeys().get("p_number").toString());
-//        product.setPNumber(pNum);
         return  Long.valueOf(keyHolder.getKeys().get("p_number").toString());
     }
 
@@ -76,9 +66,6 @@ public class ProductDAOImpl implements ProductDAO {
         sql.append("select  *  ");
         sql.append("from product_info P, member M ");
         sql.append("where p.owner_number = m.mem_number and p.p_number=? ");
-//        sql.append("select  *  ");
-//        sql.append("from product_info P, member M ");
-//        sql.append("where p.p_number=? ");
 
         Product product = null;
 
@@ -100,6 +87,19 @@ public class ProductDAOImpl implements ProductDAO {
         }
         return product;
     }
+
+    // 상품 검색
+    @Override
+    public List<Product> select(String findStr) {
+        StringBuffer sql = new StringBuffer();
+        sql.append("select * ");
+        sql.append("from product_info ");
+        sql.append("where p_name like '%?%' or p_title like '%?%' ");
+
+        List<Product> result= jt.query(sql.toString(), new BeanPropertyRowMapper<>(Product.class), findStr, findStr);
+        return result;
+    }
+
     //상품수정
     @Override
     public int update(Long pNum, Product product) {
@@ -172,5 +172,47 @@ public class ProductDAOImpl implements ProductDAO {
             log.info("조회할 회원이 없습니다. 회원번호={}", ownerNumber);
         }
         return result;
+    }
+
+    //------------------------------
+    // 상품 최신순 목록
+    @Override
+    public List<Product> recentList() {
+        StringBuffer sql = new StringBuffer();
+        sql.append("select p_number, p_name, DISCOUNT_RATE, SALE_PRICE, NORMAL_PRICE, DEADLINE_TIME ");
+        sql.append(" from product_info");
+        sql.append(" where deadline_time>sysdate ");
+        sql.append(" order by P_NUMBER desc ");
+        return null;
+    }
+    // 상품 높은 할인순 목록
+    @Override
+    public List<Product> discountListDesc() {
+        StringBuffer sql = new StringBuffer();
+        sql.append("select p_number, p_name, DISCOUNT_RATE, SALE_PRICE, NORMAL_PRICE, DEADLINE_TIME ");
+        sql.append(" from product_info");
+        sql.append(" where deadline_time>sysdate ");
+        sql.append(" order by P_NUMBER desc ");
+        return null;
+    }
+    // 상품 높은 가격순 목록
+    @Override
+    public List<Product> priceList() {
+        StringBuffer sql = new StringBuffer();
+        sql.append("select p_number, p_name, DISCOUNT_RATE, SALE_PRICE, NORMAL_PRICE, DEADLINE_TIME ");
+        sql.append(" from product_info");
+        sql.append(" where deadline_time>sysdate ");
+        sql.append(" order by P_NUMBER desc ");
+        return null;
+    }
+    // 상품 높은 가격순 목록
+    @Override
+    public List<Product> priceListDesc() {
+        StringBuffer sql = new StringBuffer();
+        sql.append("select p_number, p_name, DISCOUNT_RATE, SALE_PRICE, NORMAL_PRICE, DEADLINE_TIME ");
+        sql.append(" from product_info");
+        sql.append(" where deadline_time>sysdate ");
+        sql.append(" order by P_NUMBER desc ");
+        return null;
     }
 }
