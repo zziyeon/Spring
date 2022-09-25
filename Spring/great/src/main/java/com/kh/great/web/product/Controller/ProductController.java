@@ -38,13 +38,35 @@ public class ProductController {
         System.out.println(saveForm.toString());
         BeanUtils.copyProperties(saveForm, product);
 
-        System.out.println("product -> " + product);
+        System.out.println("product(before) -> " + product);
         Product savedProduct = productSVC.save(product);
-
+        System.out.println("product(after) -> " + product);
+        System.out.println("savedProduct -> " + savedProduct);
         Long num = savedProduct.getPNumber();
+        System.out.println("num -> " + num);
+
         redirectAttributes.addAttribute("num", num);
-        return "redirect:/great/products/{num}";
+        return "redirect:/products/{num}";
     }
+//    //등록처리
+//    @PostMapping("/add")
+//    public String add(@Valid @ModelAttribute("form") SaveForm saveForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+//        Product product = new Product();
+//        System.out.println(saveForm.toString());
+//        BeanUtils.copyProperties(saveForm, product);
+//
+//        System.out.println("product(before) -> " + product);
+////        Product savedProduct = productSVC.save(product);
+//        productSVC.save(product);
+//        System.out.println("product(after) -> " + product);
+////        System.out.println("savedProduct -> " + savedProduct);
+////        Long num = savedProduct.getPNumber();
+//        Long num = product.getPNumber();
+//        System.out.println("num -> " + num);
+//
+//        redirectAttributes.addAttribute("num", num);
+//        return "redirect:/products/{num}";
+//    }
 
     //상품 개별 조회
     @GetMapping("/{num}")
@@ -81,7 +103,7 @@ public class ProductController {
         if (updatedRow == 0) {
             return "product/updateForm";
         }
-        return "redirect:/great/products/{num}";
+        return "redirect:/products/{num}";
     }
 
     //삭제처리
@@ -91,7 +113,7 @@ public class ProductController {
         if (deletedRow == 0) {
             return "redirect:/products/" + num;
         }
-        return "redirect:/great/products";
+        return "redirect:/products";
     }
     //상품관리
     @GetMapping("/{ownerNumber}/manage")

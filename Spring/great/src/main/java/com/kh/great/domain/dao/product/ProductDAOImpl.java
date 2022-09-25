@@ -36,7 +36,7 @@ public class ProductDAOImpl implements ProductDAO {
     //상품등록
     @Override
     public Product save(Product product) {
-        String sql = "insert into product_info(p_number, p_title, p_name, DEADLINE_TIME, CATEGORY, TOTAL_COUNT, REMAIN_COUNT ,NORMAL_PRICE, SALE_PRICE, DISCOUNT_RATE, PAYMENT_OPTION, DETAIL_INFO ) values(?, ?, ?, TO_DATE(?,'YYYY-MM-DD\"T\"HH24:MI'), ?, ?, ?, ?, ?, ?, ?, ?) ";
+        String sql = "insert into product_info(p_number, owner_number, p_title, p_name, DEADLINE_TIME, CATEGORY, TOTAL_COUNT, REMAIN_COUNT ,NORMAL_PRICE, SALE_PRICE, DISCOUNT_RATE, PAYMENT_OPTION, DETAIL_INFO ) values(?, 9, ?, ?, TO_DATE(?,'YYYY-MM-DD\"T\"HH24:MI'), ?, ?, ?, ?, ?, ?, ?, ?) ";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jt.update(new PreparedStatementCreator() {
@@ -44,6 +44,7 @@ public class ProductDAOImpl implements ProductDAO {
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
                 PreparedStatement pstmt = con.prepareStatement(sql, new String[]{"p_number"});
                 pstmt.setLong(1, product.getPNumber());
+//                pstmt.setLong(2, product.getOwnerNumber());
                 pstmt.setString(2, product.getPTitle());
                 pstmt.setString(3, product.getPName());
                 pstmt.setString(4, product.getDeadlineTime());
@@ -72,6 +73,9 @@ public class ProductDAOImpl implements ProductDAO {
         sql.append("select  *  ");
         sql.append("from product_info P, member M ");
         sql.append("where p.owner_number = m.mem_number and p.p_number=? ");
+//        sql.append("select  *  ");
+//        sql.append("from product_info P, member M ");
+//        sql.append("where p.p_number=? ");
 
         Product product = null;
 
@@ -82,7 +86,7 @@ public class ProductDAOImpl implements ProductDAO {
                     Product product = (new BeanPropertyRowMapper<>(Product.class)).mapRow(rs, rowNum);
                     Member member = (new BeanPropertyRowMapper<>(Member.class)).mapRow(rs,rowNum);
                     product.setMember(member);
-                    log.info("product1={}", product);
+                    log.info("product={}", product);
                     return product;
                 }
             },pNum);

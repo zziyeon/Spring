@@ -18,7 +18,9 @@ public class ProductSVCImpl implements ProductSVC {
     @Override
     public Product save(Product product) {
         Long generatePnum= productDAO.generatePnum();
+//        System.out.println("[save] generatePnum => " + generatePnum);
         product.setPNumber(generatePnum);
+//        System.out.println("[save] product.getPNumber => " + product.getPNumber());
         productDAO.save(product);
 
         return productDAO.findByProductNum(generatePnum);

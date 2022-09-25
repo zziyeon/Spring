@@ -1,5 +1,6 @@
 package com.kh.great.web.product.dto;
 
+import com.kh.great.domain.Member;
 import lombok.Data;
 
 @Data
@@ -21,4 +22,6 @@ public class UpdateForm {
 //    private LocalDateTime rDate;    //등록일    R_DATE DATE DEFAULT SYSDATE
 //    private LocalDateTime uDate;    //수정일    U_DATE	DATE DEFAULT SYSDATE
 //    private Integer pStatus;        //판매상태    P_STATUS	NUMBER(1,0)
+
+    private Member member;
 }
