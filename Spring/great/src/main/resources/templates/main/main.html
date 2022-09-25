@@ -46,23 +46,7 @@
     <!-- main -->
     <main class="main container">
         <section class="title content">오늘의 마감 할인!</section>
-        <section class="items content">
-            <div class="item" th:each="rec:${list}" th:data-product-num="${rec.pNumber}">
-                <a th:href="@{/products/{pNumber}(pNumber=${(rec.pNumber)})}" class="item__image"><img src="https://cdn.imweb.me/thumbnail/20210628/f9482d3bbe416.jpg"
-                                                    alt=""></a>
-                <button class="heart_Btn"><i class="fa-regular fa-heart"></i></button>
-                <a href="#" class="item__title">[[${rec.pName}]]</a>
-                <div class="item__price-box">
-                    <div class="item__discount-rate">[[${rec.discountRate}]]%</div>
-                    <div class="item__price">[[${rec.salePrice}]]원</div>
-                    <div class="item__price--normal">[[${rec.normalPrice}]]원</div>
-                </div>
-                <div class="item__time-box">
-                    <div class="item__magam">마감시간</div>
-                    <div class="item__time" th:text="${#strings.substring(rec.deadlineTime,11,16)}"></div>
-                </div>
-            </div>
-        </section>
+        <section th:replace="~{layout/product_ui::each_product}"></section>
         <section class="view-all content"><a href="/판매/오늘마감할인_전체상품보기.html">전체보기</a></section>
     </main>
     <!-- //main -->
