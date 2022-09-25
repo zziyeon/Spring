@@ -141,6 +141,8 @@ public class ProductController {
         return "redirect:/";
     }
 
+
+
     //상품관리
     @GetMapping("/{ownerNumber}/manage")
     public String manage(@PathVariable("ownerNumber") Long ownerNumber, Model model) {

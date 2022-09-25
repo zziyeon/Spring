@@ -20,6 +20,9 @@ public interface ProductSVC {
     //상품삭제
     int deleteByProductNum(Long pNum);
 
+    // 오늘 마감 상품 목록
+    List<Product> today_deadline();
+
     //상품 관리
     List<Product> pManage(Long ownerNumber);
 }

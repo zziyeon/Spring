@@ -42,6 +42,12 @@ public class ProductSVCImpl implements ProductSVC {
         return productDAO.deleteByProductNum(pNum);
     }
 
+    // 오늘 마감 상품 목록
+    @Override
+    public List<Product> today_deadline() {
+        return productDAO.today_deadline();
+    }
+
     //상품 관리 목록
     @Override
     public List<Product> pManage(Long ownerNumber) {

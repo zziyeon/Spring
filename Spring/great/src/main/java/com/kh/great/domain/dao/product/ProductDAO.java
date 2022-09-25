@@ -22,6 +22,9 @@ public interface ProductDAO {
     //상품삭제
     int deleteByProductNum(Long pNum);
 
+    // 오늘 마감 상품 목록
+    List<Product> today_deadline();
+
     //상품관리목록
     List<Product> pManage(Long ownerNumber);
 }

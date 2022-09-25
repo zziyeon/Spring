@@ -22,7 +22,7 @@ public class MainController {
     //홈페이지 메인
     @GetMapping("")
     public String main(Model model) {
-        List<Product> list = productSVC.findAll();
+        List<Product> list = productSVC.today_deadline();
         model.addAttribute("list", list);
 
         return "main/main";

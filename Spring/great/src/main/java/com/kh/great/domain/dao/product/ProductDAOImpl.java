@@ -120,12 +120,12 @@ public class ProductDAOImpl implements ProductDAO {
     public List<Product> findAll() {
         StringBuffer sql = new StringBuffer();
 
-        sql.append("select p_number, p_name, DISCOUNT_RATE, SALE_PRICE, NORMAL_PRICE,DEADLINE_TIME ");
+        sql.append("select p_number, p_name, DISCOUNT_RATE, SALE_PRICE, NORMAL_PRICE, DEADLINE_TIME ");
         sql.append(" from product_info");
-        sql.append(" order by P_NUMBER desc");
+        sql.append(" where deadline_time>sysdate ");
+        sql.append(" order by P_NUMBER desc ");
 
         List<Product> result = jt.query(sql.toString(), new BeanPropertyRowMapper<>(Product.class));
-
         return result;
     }
 
@@ -133,8 +133,20 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     public int deleteByProductNum(Long pNum) {
         String sql = "delete from product_info where P_NUMBER=? ";
-
         return jt.update(sql, pNum);
+    }
+
+    // 오늘 마감할인 상품
+    @Override
+    public List<Product> today_deadline() {
+        StringBuffer sql = new StringBuffer();
+
+        sql.append("select P_NUMBER, P_NAME, DISCOUNT_RATE, SALE_PRICE, NORMAL_PRICE, DEADLINE_TIME ");
+        sql.append("from product_info ");
+        sql.append("where to_char(deadline_time, 'yyyy-mm-dd') = to_char(sysdate, 'yyyy-mm-dd') and deadline_time>sysdate " );
+
+        List<Product> result = jt.query(sql.toString(), new BeanPropertyRowMapper<>(Product.class));
+        return result;
     }
 
     //상품 관리
@@ -159,7 +171,6 @@ public class ProductDAOImpl implements ProductDAO {
         } catch (DataAccessException e) {
             log.info("조회할 회원이 없습니다. 회원번호={}", ownerNumber);
         }
-
         return result;
     }
 }
