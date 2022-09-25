@@ -1,31 +1,27 @@
 package com.kh.great.domain.svc.product;
 
-import com.kh.great.domain.dao.product.ProductDAO;
 import com.kh.great.domain.Product;
+import com.kh.great.domain.dao.product.ProductDAO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ProductSVCImpl implements ProductSVC {
     private final ProductDAO productDAO;
 
     //상품 등록
     @Override
-    public Product save(Product product) {
-        Long generatePnum= productDAO.generatePnum();
-//        System.out.println("[save] generatePnum => " + generatePnum);
-        product.setPNumber(generatePnum);
-//        System.out.println("[save] product.getPNumber => " + product.getPNumber());
-        productDAO.save(product);
-
-        return productDAO.findByProductNum(generatePnum);
+    public Long save(Product product) {
+        return productDAO.save(product);
     }
     //상품 조회
+    @Transactional(readOnly = true)
     @Override
     public Product findByProductNum(Long pNum) {
         return productDAO.findByProductNum(pNum);

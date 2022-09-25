@@ -3,11 +3,10 @@ package com.kh.great.domain.svc.product;
 import com.kh.great.domain.Product;
 
 import java.util.List;
-
 public interface ProductSVC {
 
     //상품등록
-    Product save(Product product);
+    Long save(Product product);
 
     //상품조회
     Product findByProductNum(Long pNum);

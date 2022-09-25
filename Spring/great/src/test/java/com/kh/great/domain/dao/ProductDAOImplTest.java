@@ -3,8 +3,7 @@ package com.kh.great.domain.dao;
 import com.kh.great.domain.Product;
 import com.kh.great.domain.dao.product.ProductDAO;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -30,15 +29,15 @@ class ProductDAOImplTest {
 //
 //  }
 
-  @Test
-  @DisplayName("조회")
-  void findByProductNum() {
-    Long p_number= 11l;
-    Product findedProduct = productDAO.findByProductNum(p_number);
-    log.error("{}=>", findedProduct.getPNumber());
-    Assertions.assertThat(findedProduct.getPNumber()).isEqualTo(11);
-    log.info("findedProduct={}", findedProduct);
-  }
+//  @Test
+//  @DisplayName("조회")
+//  void findByProductNum() {
+//    Long p_number= 11l;
+//    Product findedProduct = productDAO.findByProductNum(p_number);
+//    log.error("{}=>", findedProduct.getPNumber());
+//    Assertions.assertThat(findedProduct.getPNumber()).isEqualTo(11);
+//    log.info("findedProduct={}", findedProduct);
+//  }
 
   @Test
   void update() {

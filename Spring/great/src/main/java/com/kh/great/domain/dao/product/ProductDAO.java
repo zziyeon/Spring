@@ -5,10 +5,10 @@ import com.kh.great.domain.Product;
 import java.util.List;
 
 public interface ProductDAO {
-    //상품번호 생성
-    Long generatePnum();
+//    //상품번호 생성
+//    Long generatePnum();
     //상품등록
-    Product save(Product product);
+    Long save(Product product);
 
     //상품조회
     Product findByProductNum(Long pNum);

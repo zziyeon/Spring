@@ -25,47 +25,50 @@ import java.util.List;
 public class ProductDAOImpl implements ProductDAO {
     private final JdbcTemplate jt;
 
-    //상품번호 생성
-    @Override
-    public Long generatePnum() {
-        String sql = "select product_p_number_seq.nextval from dual";
-        Long productNum = jt.queryForObject(sql, Long.class);
-        return productNum;
-    }
+//    //상품번호 생성
+//    @Override
+//    public Long generatePnum() {
+//        String sql = "select product_p_number_seq.nextval from dual";
+//        Long productNum = jt.queryForObject(sql, Long.class);
+//        return productNum;
+//    }
 
     //상품등록
     @Override
-    public Product save(Product product) {
-        String sql = "insert into product_info(p_number, owner_number, p_title, p_name, DEADLINE_TIME, CATEGORY, TOTAL_COUNT, REMAIN_COUNT ,NORMAL_PRICE, SALE_PRICE, DISCOUNT_RATE, PAYMENT_OPTION, DETAIL_INFO ) values(?, 9, ?, ?, TO_DATE(?,'YYYY-MM-DD\"T\"HH24:MI'), ?, ?, ?, ?, ?, ?, ?, ?) ";
+    public Long save(Product product) {
+        StringBuffer sql = new StringBuffer();
+
+        sql.append("insert into product_info(p_number, owner_number, p_title, p_name, DEADLINE_TIME, CATEGORY, TOTAL_COUNT, REMAIN_COUNT ,NORMAL_PRICE, SALE_PRICE, DISCOUNT_RATE, PAYMENT_OPTION, DETAIL_INFO ) ");
+        sql.append("values(product_p_number_seq.nextval, 9, ?, ?, TO_DATE(?,'YYYY-MM-DD\"T\"HH24:MI'), ?, ?, ?, ?, ?, ?, ?, ?) ");
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jt.update(new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-                PreparedStatement pstmt = con.prepareStatement(sql, new String[]{"p_number"});
-                pstmt.setLong(1, product.getPNumber());
+                PreparedStatement pstmt = con.prepareStatement(sql.toString(), new String[]{"p_number"});
 //                pstmt.setLong(2, product.getOwnerNumber());
-                pstmt.setString(2, product.getPTitle());
-                pstmt.setString(3, product.getPName());
-                pstmt.setString(4, product.getDeadlineTime());
+                pstmt.setString(1, product.getPTitle());
+                pstmt.setString(2, product.getPName());
+                pstmt.setString(3, product.getDeadlineTime());
                 log.info("product.getDeadline_time()=>{}", product.getDeadlineTime());
-                pstmt.setString(5, product.getPCategory());
+                pstmt.setString(4, product.getPCategory());
+                pstmt.setInt(5, product.getTotalCount());
                 pstmt.setInt(6, product.getTotalCount());
-                pstmt.setInt(7, product.getTotalCount());
-                pstmt.setInt(8, product.getNormalPrice());
-                pstmt.setInt(9, product.getSalePrice());
-                pstmt.setInt(10, (product.getNormalPrice()-product.getSalePrice())*100/product.getNormalPrice());
-                pstmt.setString(11, product.getPaymentOption());
-                pstmt.setString(12, product.getDetailInfo());
+                pstmt.setInt(7, product.getNormalPrice());
+                pstmt.setInt(8, product.getSalePrice());
+                pstmt.setInt(9, (product.getNormalPrice()-product.getSalePrice())*100/product.getNormalPrice());
+                pstmt.setString(10, product.getPaymentOption());
+                pstmt.setString(11, product.getDetailInfo());
 
                 return pstmt;
             }
         }, keyHolder);
 
-        Long pNum = Long.valueOf(keyHolder.getKeys().get("p_number").toString());
-        product.setPNumber(pNum);
-        return product;
+//        Long pNum = Long.valueOf(keyHolder.getKeys().get("p_number").toString());
+//        product.setPNumber(pNum);
+        return  Long.valueOf(keyHolder.getKeys().get("p_number").toString());
     }
+
     //상품조회
     @Override
     public Product findByProductNum(Long pNum) {
@@ -92,6 +95,8 @@ public class ProductDAOImpl implements ProductDAO {
             },pNum);
         }catch (DataAccessException e) {
             log.info("조회할 상품이 없습니다. 상품번호={}", pNum);
+//            e.printStackTrace();
+//            return Optional.empty();
         }
         return product;
     }
