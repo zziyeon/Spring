@@ -71,7 +71,7 @@ public class ProductDAOImpl implements ProductDAO {
         StringBuffer sql = new StringBuffer();
         sql.append("select  *  ");
         sql.append("from product_info P, member M ");
-        sql.append("where p.owner_number = m.mem_number and p.owner_number=9 ");
+        sql.append("where p.owner_number = m.mem_number and p.p_number=? ");
 
         Product product = null;
 
@@ -82,13 +82,13 @@ public class ProductDAOImpl implements ProductDAO {
                     Product product = (new BeanPropertyRowMapper<>(Product.class)).mapRow(rs, rowNum);
                     Member member = (new BeanPropertyRowMapper<>(Member.class)).mapRow(rs,rowNum);
                     product.setMember(member);
+                    log.info("product1={}", product);
                     return product;
                 }
-            });
+            },pNum);
         }catch (DataAccessException e) {
             log.info("조회할 상품이 없습니다. 상품번호={}", pNum);
         }
-        log.info("product={}", product);
         return product;
     }
     //상품수정

@@ -31,7 +31,7 @@ public class ProductController {
 
         return "product/addForm";
     }
-
+    //등록처리
     @PostMapping("/add")
     public String add(@Valid @ModelAttribute("form") SaveForm saveForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         Product product = new Product();
