@@ -73,8 +73,7 @@ public class ProductController {
         pNum = productSVC.save(product);
 
         redirectAttributes.addAttribute("num", pNum);
-        return "redirect:/products/{num}";
-//        return "product/detailForm";
+        return "product/detailForm";
     }
 
     //origin) 상품 개별 조회
@@ -126,7 +125,8 @@ public class ProductController {
 
         int updatedRow = productSVC.update(num, product);
         if (updatedRow == 0) {
-            return "product/updateForm";
+
+            return  "redirect: /products/{num}";
         }
         return "redirect:/products/{num}";
     }
@@ -148,5 +148,14 @@ public class ProductController {
         model.addAttribute("list", list);
 
         return "product/manage";
+    }
+
+    //판매 내역 목록
+    @GetMapping("/{ownerNumber}/saleList")
+    public String saleList(@PathVariable("ownerNumber") Long ownerNumber, Model model) {
+        List<Product> list = productSVC.pManage(ownerNumber);
+        model.addAttribute("list", list);
+
+        return "product/saleList";
     }
 }

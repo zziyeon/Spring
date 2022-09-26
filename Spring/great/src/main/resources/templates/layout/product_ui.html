@@ -10,7 +10,7 @@
 <section th:if="${list.size>0}" class="items content" th:fragment="each_product">
     <div class="item" th:each="rec:${list}" th:data-product-num="${rec.pNumber}">
         <a th:href="@{/products/{pNumber}(pNumber=${(rec.pNumber)})}" class="item__image"><img src="https://cdn.imweb.me/thumbnail/20210628/f9482d3bbe416.jpg"  alt=""></a>
-        <button class="heart_Btn"><i class="fa-regular fa-heart"></i></button>
+        <button class="heart_Btn"><i class="heartIcon far fa-heart fas"></i></button>
         <a href="#" class="item__title">[[${rec.pName}]]</a>
         <div class="item__price-box">
             <div class="item__discount-rate">[[${rec.discountRate}]]%</div>
@@ -25,7 +25,7 @@
 </section>
 <section th:if="${list.size==0}" class="item_none content" th:fragment="each_product">
     <div class="item">
-        <img class="img_soldout" th:src="@{img/soldout.png}" />
+        <img class="img_soldout" th:src="@{img/soldout2.png}" />
         <div class="text_soldout">
             <div>오늘의 마감 할인 상품이 모두 <u>소진</u>되었습니다.</div>
             <div>내일 다시 방문 해주세요.</div>

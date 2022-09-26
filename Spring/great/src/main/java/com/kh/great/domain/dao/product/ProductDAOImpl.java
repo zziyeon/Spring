@@ -1,5 +1,6 @@
 package com.kh.great.domain.dao.product;
 
+import com.kh.great.domain.Deal;
 import com.kh.great.domain.Member;
 import com.kh.great.domain.Product;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +44,7 @@ public class ProductDAOImpl implements ProductDAO {
                 pstmt.setString(2, product.getPName());
                 pstmt.setString(3, product.getDeadlineTime());
                 log.info("product.getDeadline_time()=>{}", product.getDeadlineTime());
-                pstmt.setString(4, product.getPCategory());
+                pstmt.setString(4, product.getCategory());
                 pstmt.setInt(5, product.getTotalCount());
                 pstmt.setInt(6, product.getTotalCount());
                 pstmt.setInt(7, product.getNormalPrice());
@@ -110,7 +111,7 @@ public class ProductDAOImpl implements ProductDAO {
         sql.append("SET p_title = ?, P_NAME=?, DEADLINE_TIME = TO_DATE(?,'YYYY-MM-DD\"T\"HH24:MI'), CATEGORY=?, REMAIN_COUNT=?, NORMAL_PRICE = ?, SALE_PRICE = ?, DISCOUNT_RATE=?, PAYMENT_OPTION=?, detail_info=? ");
         sql.append("WHERE p_number = ? ");
 
-        result=jt.update(sql.toString(), product.getPTitle(), product.getPName(), product.getDeadlineTime(), product.getPCategory(), product.getRemainCount(), product.getNormalPrice(), product.getSalePrice(), (product.getNormalPrice()-product.getSalePrice())*100/product.getNormalPrice(), product.getPaymentOption(), product.getDetailInfo(), pNum );
+        result=jt.update(sql.toString(), product.getPTitle(), product.getPName(), product.getDeadlineTime(), product.getCategory(), product.getRemainCount(), product.getNormalPrice(), product.getSalePrice(), (product.getNormalPrice()-product.getSalePrice())*100/product.getNormalPrice(), product.getPaymentOption(), product.getDetailInfo(), pNum );
 
         return result;
     }
@@ -122,7 +123,7 @@ public class ProductDAOImpl implements ProductDAO {
 
         sql.append("select p_number, p_name, DISCOUNT_RATE, SALE_PRICE, NORMAL_PRICE, DEADLINE_TIME ");
         sql.append(" from product_info");
-        sql.append(" where deadline_time>sysdate ");
+        sql.append(" where deadline_time>sysdate and REMAIN_COUNT >0 ");
         sql.append(" order by P_NUMBER desc ");
 
         List<Product> result = jt.query(sql.toString(), new BeanPropertyRowMapper<>(Product.class));
@@ -143,7 +144,7 @@ public class ProductDAOImpl implements ProductDAO {
 
         sql.append("select P_NUMBER, P_NAME, DISCOUNT_RATE, SALE_PRICE, NORMAL_PRICE, DEADLINE_TIME ");
         sql.append("from product_info ");
-        sql.append("where to_char(deadline_time, 'yyyy-mm-dd') = to_char(sysdate, 'yyyy-mm-dd') and deadline_time>sysdate " );
+        sql.append("where to_char(deadline_time, 'yyyy-mm-dd') = to_char(sysdate, 'yyyy-mm-dd') and deadline_time>sysdate and REMAIN_COUNT >0 " );
 
         List<Product> result = jt.query(sql.toString(), new BeanPropertyRowMapper<>(Product.class));
         return result;
@@ -155,7 +156,7 @@ public class ProductDAOImpl implements ProductDAO {
 
         sql.append("select p.P_NUMBER, p.P_STATUS, p.P_NAME, p.SALE_PRICE, p.REMAIN_COUNT, p.TOTAL_COUNT ");
         sql.append("from product_info P, member M ");
-        sql.append("where p.owner_number = m.mem_number and m.mem_type='owner' and p.owner_number=10 ");
+        sql.append("where p.owner_number = m.mem_number and m.mem_type='owner' and p.owner_number=9 ");
 
         List<Product> result =null;
         try {
@@ -174,6 +175,33 @@ public class ProductDAOImpl implements ProductDAO {
         return result;
     }
 
+    //상품 관리
+    public List<Product> saleList(Long ownerNumber) {
+        StringBuffer sql = new StringBuffer();
+
+        sql.append("select *");
+        sql.append("from product_info P, member M, Deal D ");
+        sql.append("where p.owner_number = m.mem_number and and m.mem_type='owner' and p.owner_number=9 ");
+
+        List<Product> result =null;
+        try {
+            result= jt.query(sql.toString(),new RowMapper<Product>(){
+                @Override
+                public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    Product product = (new BeanPropertyRowMapper<>(Product.class)).mapRow(rs, rowNum);
+                    Member member = (new BeanPropertyRowMapper<>(Member.class)).mapRow(rs,rowNum);
+                    Deal deal = (new BeanPropertyRowMapper<>(Deal.class)).mapRow(rs,rowNum);
+                    product.setMember(member);
+                    product.setDeal(deal);
+                    return product;
+                }
+            });
+        } catch (DataAccessException e) {
+            log.info("조회할 회원이 없습니다. 회원번호={}", ownerNumber);
+        }
+        return result;
+    }
+
     //------------------------------
     // 상품 최신순 목록
     @Override
@@ -181,38 +209,41 @@ public class ProductDAOImpl implements ProductDAO {
         StringBuffer sql = new StringBuffer();
         sql.append("select p_number, p_name, DISCOUNT_RATE, SALE_PRICE, NORMAL_PRICE, DEADLINE_TIME ");
         sql.append(" from product_info");
-        sql.append(" where deadline_time>sysdate ");
+        sql.append(" where deadline_time>sysdate and REMAIN_COUNT >0  ");
         sql.append(" order by P_NUMBER desc ");
         return null;
     }
+
     // 상품 높은 할인순 목록
     @Override
     public List<Product> discountListDesc() {
         StringBuffer sql = new StringBuffer();
         sql.append("select p_number, p_name, DISCOUNT_RATE, SALE_PRICE, NORMAL_PRICE, DEADLINE_TIME ");
         sql.append(" from product_info");
-        sql.append(" where deadline_time>sysdate ");
-        sql.append(" order by P_NUMBER desc ");
+        sql.append(" where deadline_time>sysdate and REMAIN_COUNT >0 ");
+        sql.append(" order by DISCOUNT_RATE desc ");
         return null;
     }
-    // 상품 높은 가격순 목록
+
+    // 상품 낮은 가격순 목록
     @Override
     public List<Product> priceList() {
         StringBuffer sql = new StringBuffer();
         sql.append("select p_number, p_name, DISCOUNT_RATE, SALE_PRICE, NORMAL_PRICE, DEADLINE_TIME ");
         sql.append(" from product_info");
-        sql.append(" where deadline_time>sysdate ");
-        sql.append(" order by P_NUMBER desc ");
+        sql.append(" where deadline_time>sysdate and REMAIN_COUNT >0 ");
+        sql.append(" order by SALE_PRICE asc ");
         return null;
     }
+
     // 상품 높은 가격순 목록
     @Override
     public List<Product> priceListDesc() {
         StringBuffer sql = new StringBuffer();
         sql.append("select p_number, p_name, DISCOUNT_RATE, SALE_PRICE, NORMAL_PRICE, DEADLINE_TIME ");
         sql.append(" from product_info");
-        sql.append(" where deadline_time>sysdate ");
-        sql.append(" order by P_NUMBER desc ");
+        sql.append(" where deadline_time>sysdate and REMAIN_COUNT >0 ");
+        sql.append(" order by SALE_PRICE desc ");
         return null;
     }
 }

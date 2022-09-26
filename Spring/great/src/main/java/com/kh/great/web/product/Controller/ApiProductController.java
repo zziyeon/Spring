@@ -18,8 +18,8 @@ import java.util.List;
 public class ApiProductController {
     private final ProductSVC productSVC;
 
-    // 최신순 목록 GET /api/zonning/priceList
-    @GetMapping("/zonning/priceList")
+    // 최신순 목록 GET /api/zonning/recentList
+    @GetMapping("/zonning/recentList")
     public ApiResponse<List<Product>>  recentList(){
         List<Product> list = productSVC.recentList();
 
@@ -28,7 +28,7 @@ public class ApiProductController {
     }
 
     // 높은 할인순순 목록 GET /api/zonning/discountListDesc
-    @GetMapping("/zonning/priceListDesc")
+    @GetMapping("/zonning/discountListDesc")
     public ApiResponse<List<Product>>  discountListDesc(){
         List<Product> list = productSVC.discountListDesc();
 

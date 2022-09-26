@@ -29,6 +29,9 @@ public interface ProductDAO {
     //상품관리목록
     List<Product> pManage(Long ownerNumber);
 
+    //판매 내역
+    List<Product> saleList(Long ownerNumber);
+
     //------------------------------------
     // 상품 최신순 목록
     List <Product> recentList();
