@@ -1,6 +1,6 @@
 package com.kh.great.domain.svc.product;
 
-import com.kh.great.domain.Product;
+import com.kh.great.domain.entity.Product;
 
 import java.util.List;
 public interface ProductSVC {
@@ -32,7 +32,7 @@ public interface ProductSVC {
     //상품 관리
     List<Product> saleList(Long ownerNumber);
 
-//----------------------------------------------
+    //----------------------------------------------
     // 상품 최신순 목록
     List <Product> recentList();
 

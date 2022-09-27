@@ -1,7 +1,5 @@
 package com.kh.great.domain.dao;
 
-import com.kh.great.domain.Product;
-import com.kh.great.domain.dao.product.ProductDAO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

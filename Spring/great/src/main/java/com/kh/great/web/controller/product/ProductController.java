@@ -1,10 +1,8 @@
-package com.kh.great.web.product.Controller;
+package com.kh.great.web.controller.product;
 
-import com.kh.great.domain.Product;
-import com.kh.great.domain.svc.product.ProductSVC;
-import com.kh.great.web.product.dto.DetailForm;
-import com.kh.great.web.product.dto.SaveForm;
-import com.kh.great.web.product.dto.UpdateForm;
+import DetailForm;
+import SaveForm;
+import UpdateForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
