@@ -1,10 +1,10 @@
-package com.kh.great.web.controller;
+package com.kh.great.web.controller.attachFile;
 
 import com.kh.great.domain.common.file.AttachCode;
 import com.kh.great.domain.common.file.FileUtils;
 import com.kh.great.domain.common.file.UploadFile;
 import com.kh.great.domain.common.file.UploadFileSVC;
-import com.kh.great.web.api.ApiResponse;
+import com.kh.great.web.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
