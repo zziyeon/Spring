@@ -1,4 +1,4 @@
-package com.kh.great.web;
+package com.kh.great.web.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

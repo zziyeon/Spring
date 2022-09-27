@@ -1,5 +1,8 @@
 package com.kh.great;
 
+
+import com.kh.great.domain.common.paging.PageCriteria;
+import com.kh.great.domain.common.paging.RecordCriteria;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

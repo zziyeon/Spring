@@ -38,6 +38,16 @@ public class MainController {
         return "main/zonning_list";
     }
 
+    //지역별 상품 목록(할인순.,,,,??)
+    @GetMapping("/csr/zonning")
+    @Nullable
+    public String discountListDesc(Model model) {
+        List<Product> list = productSVC.findAll();
+        model.addAttribute("list", list);
+
+        return "main/zonning_list_csr";
+    }
+
 //    // 상품 검색
 //    public String select(Model model, String findStr) {
 //        List<Product> list = productSVC.select(findStr);

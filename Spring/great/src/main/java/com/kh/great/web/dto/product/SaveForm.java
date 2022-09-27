@@ -1,6 +1,11 @@
 package com.kh.great.web.dto.product;
 
+import com.kh.great.domain.entity.Member;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+
 @Data
 public class SaveForm {
     private Long pNumber;           //상품번호    P_NUMBER	NUMBER(6,0)
@@ -19,4 +24,9 @@ public class SaveForm {
 //    private LocalDateTime rDate;    //등록일    R_DATE DATE DEFAULT SYSDATE
 //    private LocalDateTime uDate;    //수정일    U_DATE	DATE DEFAULT SYSDATE
 //    private Integer pStatus;        //판매상태    P_STATUS	NUMBER(1,0)
+
+    private Member member;
+
+    private MultipartFile file;   //상품설명 첨부파일(단건)
+    private List<MultipartFile> files;    //상품 이미지 첨부(여러건)
 }

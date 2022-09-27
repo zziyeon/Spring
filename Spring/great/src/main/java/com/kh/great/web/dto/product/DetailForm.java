@@ -1,6 +1,10 @@
 package com.kh.great.web.dto.product;
 
+import com.kh.great.domain.common.file.UploadFile;
+import com.kh.great.domain.entity.Member;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class DetailForm {
@@ -23,6 +27,7 @@ public class DetailForm {
 //    private LocalDateTime uDate;    //수정일    U_DATE	DATE DEFAULT SYSDATE
 //    private Integer pStatus;        //판매상태    P_STATUS	NUMBER(1,0)
 
-
     private Member member;
+
+    private List<UploadFile> imageFiles;
 }

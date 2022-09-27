@@ -1,6 +1,8 @@
 package com.kh.great.web.controller.product;
 
-import com.kh.great.web.ApiResponse;
+import com.kh.great.domain.entity.Product;
+import com.kh.great.domain.svc.product.ProductSVC;
+import com.kh.great.web.api.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +20,7 @@ public class ApiProductController {
 
     // 최신순 목록 GET /api/zonning/recentList
     @GetMapping("/zonning/recentList")
-    public ApiResponse<List<Product>>  recentList(){
+    public ApiResponse<List<Product>> recentList(){
         List<Product> list = productSVC.recentList();
 
         //api 응답 메시지
